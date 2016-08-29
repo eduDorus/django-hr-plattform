@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'company',
     'account',
     'user',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -103,3 +104,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Authentication
+
+LOGIN_REDIRECT_URL = '/'
+
+# E-Mail Backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'romulus.metanet.ch'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@upgrade.ai'
+EMAIL_HOST_PASSWORD = '#loginMetanet4Me'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'info@upgrade.ai'
