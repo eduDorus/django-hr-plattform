@@ -1,9 +1,11 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
+
+from .views import UserFormView
 
 urlpatterns = [
+
+    url(r'registration/$', UserFormView.as_view(), name='registration'),
 
     url(r'^login/$', auth_views.login,
         {

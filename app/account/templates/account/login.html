@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
+{% load bootstrap3 %}
+
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" class="form">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="login"/>
-        <input type="hidden" name="next" value="{{ next }}"/>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "log-in" %} Login
+            </button>
+            <a href="{% url 'password_reset' %}">Forgot password? No problem</a>
+        {% endbuttons %}
     </form>
 
-    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    <p>No account yet? <a href="{% url 'registration' %}">Click here to sign up</a></p>
+
+
 {% endblock %}
