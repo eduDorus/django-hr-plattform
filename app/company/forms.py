@@ -1,14 +1,5 @@
-from django.contrib.auth.models import User
 from django import forms
-
-
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    birthday = forms.DateField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'birthday']
+from django.contrib.auth.models import User
 
 
 class CompanyUserForm(forms.ModelForm):

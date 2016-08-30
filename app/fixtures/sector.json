@@ -1,0 +1,128 @@
+[
+  {
+    "model": "company.sector",
+    "pk": 1,
+    "fields": {
+      "name": "Admin. / HR / Consulting / CEO"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 2,
+    "fields": {
+      "name": "Banking / Insurance"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 3,
+    "fields": {
+      "name": "Catering / Food / Tourism"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 4,
+    "fields": {
+      "name": "Chemical / Pharma / Biotechnology"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 5,
+    "fields": {
+      "name": "Construction / Architecture / Engineer"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 6,
+    "fields": {
+      "name": "Electronics / Engineering / Watches"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 7,
+    "fields": {
+      "name": "Finance / Trusts / Real Estate"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 8,
+    "fields": {
+      "name": "Graphic Art / Typography / Printing"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 9,
+    "fields": {
+      "name": "Information Technology / Telecom."
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 10,
+    "fields": {
+      "name": "Machine / Plant Engin. / Manufacturing"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 11,
+    "fields": {
+      "name": "Medicine / Care / Therapy"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 12,
+    "fields": {
+      "name": "Marketing / Communications / Editorial"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 13,
+    "fields": {
+      "name": "Public Admin. / Education / Social"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 14,
+    "fields": {
+      "name": "Purchasing / Logistics / Trading"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 15,
+    "fields": {
+      "name": "Sales / Customer Service / Admin."
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 16,
+    "fields": {
+      "name": "Sport / Spas&Wellness / Culture"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 17,
+    "fields": {
+      "name": "Surveillance / Police / Customs / Rescue"
+    }
+  },
+  {
+    "model": "company.sector",
+    "pk": 18,
+    "fields": {
+      "name": "Vehicles / Craft / Warehouse / Transport"
+    }
+  }
+]
