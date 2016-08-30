@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 
 from .forms import UserForm
+from .models import UserProfile
 
 
 class UserFormView(View):
@@ -28,8 +29,18 @@ class UserFormView(View):
             user.set_password(password)
             user.save()
 
-            # authenticate user
+            # Authenticate user
             user = authenticate(username=username, password=password)
+
+            # Create user profile
+            gender = form.cleaned_data['gender']
+            birthday = form.cleaned_data['birthday']
+
+            profile = UserProfile()
+            profile.gender = gender
+            profile.birthday = birthday
+            profile.user = user
+            profile.save()
 
             if user is not None:
 
