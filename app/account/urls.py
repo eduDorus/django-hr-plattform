@@ -1,11 +1,13 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-from .views import UserFormView
+from .views import UserFormView, CompanyUserFormView
 
 urlpatterns = [
 
-    url(r'registration/$', UserFormView.as_view(), name='registration'),
+    url(r'^registration/$', UserFormView.as_view(), name='registration'),
+
+    url(r'^company-registration/$', CompanyUserFormView.as_view(), name='company-registration'),
 
     url(r'^login/$', auth_views.login,
         {

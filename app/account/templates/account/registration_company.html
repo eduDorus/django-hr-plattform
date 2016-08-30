@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
+
+{% block content %}
+<p>This registration is for company users, if you are looking for a job please <a href="{% url 'registration' %}">sign up here</a></p>
+{% endblock %}
+
 {% block form %}
 
     <form action="" method="post" class="form">
