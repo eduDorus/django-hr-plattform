@@ -1,9 +1,10 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.views import generic
 from django.views.generic import View
 
 from .forms import UserForm
-from .models import UserProfile
+from .models import Profile
 
 
 class UserFormView(View):
@@ -36,7 +37,7 @@ class UserFormView(View):
             gender = form.cleaned_data['gender']
             birthday = form.cleaned_data['birthday']
 
-            profile = UserProfile()
+            profile = Profile()
             profile.gender = gender
             profile.birthday = birthday
             profile.user = user
@@ -50,3 +51,15 @@ class UserFormView(View):
                     return redirect('index')
 
         return render(request, self.template_name, {'form': form})
+
+
+class ProfileView(generic.DetailView):
+    model = Profile
+    template_name = 'user/profile.html'
+    context_object_name = 'profile'
+
+
+class ProfileEdit(generic.UpdateView):
+    model = Profile
+    template_name = 'user/form.html'
+    fields = ['gender', 'birthday', 'company_user']

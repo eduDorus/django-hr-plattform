@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+    <p>{{ profile.gender }}</p>
+    <p>{{ profile.birthday }}</p>
+
+    <a href="{% url 'user-profile-edit' request.user.id %}" class="btn btn-danger">Edit</a>
+{% endblock %}

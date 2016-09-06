@@ -31,7 +31,7 @@ class Company(models.Model):
     permission_requests = models.ManyToManyField(User, related_name='permission_requests')
 
     def get_absolute_url(self):
-        return reverse('company:company-detail', kwargs={'pk': self.pk})
+        return reverse('company-profile', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name

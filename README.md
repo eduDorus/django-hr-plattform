@@ -31,5 +31,5 @@ pip freeze > requirements.txt
 If you want to fill the database with the initial data execute the following command on the JSON objects in fixtures.
 Make sure you have updated your database with "python3 manage.py migrate"
 ```
-python3 manage loaddata fixtures/sector.json
+python3 manage.py loaddata fixtures/sector.json
 ```

@@ -60,12 +60,18 @@
 
                 {% if user.is_authenticated %}
 
+                    {% if user.profile.is_company_user %}
+
+                        <li><a href="{% url 'company-profile' 1 %}">Company</a></li>
+
+                    {% endif %}
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Company</a></li>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="{% url 'user-profile' request.user.id %}">Profile</a></li>
                             <li><a href="#">Settings</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{% url 'password_change' %}">Change Password</a></li>

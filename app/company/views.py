@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.views import generic
 from django.views.generic import View
 
 from .forms import CompanyUserForm
@@ -56,3 +57,15 @@ class CompanyUserFormView(View):
                     return redirect('index')
 
         return render(request, self.template_name, {'form': form})
+
+
+class CompanyProfileView(generic.DetailView):
+    model = Company
+    template_name = 'company/profile.html'
+    context_object_name = 'profile'
+
+
+class CompanyProfileEdit(generic.UpdateView):
+    model = Company
+    template_name = 'company/form.html'
+    fields = ['name', 'description', 'sector', 'size', 'website']
