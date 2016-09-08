@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
 
+from company.models import Job
 from .forms import UserForm
 from .models import Profile
 
@@ -63,3 +64,10 @@ class ProfileEdit(generic.UpdateView):
     model = Profile
     template_name = 'user/form.html'
     fields = ['gender', 'birthday', 'company']
+
+
+class JobListView(generic.ListView):
+    model = Job
+    template_name = 'user/job_list.html'
+    context_object_name = 'job_list'
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for job in job_list %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ job.title }} - {{ job.company.name }}</h3>
+            </div>
+            <div class="panel-body">
+                <h3>Description</h3>
+                <p>{{ job.description }}</p>
+
+                <h4>Employment grade</h4>
+                <p>{{ job.employment_grade }} %</p>
+
+            </div>
+        </div>
+    {% empty %}
+        <p>no objects</p>
+    {% endfor %}
+
+
+{% endblock %}

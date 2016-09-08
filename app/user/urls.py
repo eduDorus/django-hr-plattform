@@ -1,10 +1,12 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
-from .views import UserFormView, ProfileView, ProfileEdit
+from .views import UserFormView, ProfileView, ProfileEdit, JobListView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='user/home.html'), name='user-home'),
+
+    url(r'^job-search/$', JobListView.as_view(), name='user-job-list'),
 
     url(r'^registration/$', UserFormView.as_view(), name='registration'),
 
