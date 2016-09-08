@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 
 
 class Sector(models.Model):
@@ -73,6 +74,9 @@ class Job(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(max_length=1500)
     employment_grade = models.PositiveIntegerField(choices=EMPLOYMENT_GRADE)
+
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(blank=True, null=True)
 
     min_degree = models.ForeignKey(Education, on_delete=None)
 

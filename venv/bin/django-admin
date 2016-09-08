@@ -1,4 +1,4 @@
-#!/home/upgrade/Repositories/app/venv/bin/python3
+#!/home/upgrade/Repositories/app/venv/bin/python
 
 # -*- coding: utf-8 -*-
 import re

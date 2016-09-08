@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
@@ -104,3 +105,12 @@ class JobUpdateView(generic.UpdateView):
     model = Job
     template_name = 'company/job_update.html'
     fields = ['title', 'description', 'employment_grade', 'min_degree', 'office']
+
+
+class JobDeleteView(generic.DeleteView):
+    model = Job
+    template_name = 'company/job_delete.html'
+    context_object_name = 'job'
+
+    def get_success_url(self):
+        return reverse_lazy('company-job-list', kwargs={'pk': self.request.user.profile.company.id})
