@@ -6,6 +6,11 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
+
+        {% block form %}
+
+        {% endblock %}
+
         {% buttons %}
 
             {% block buttons %}

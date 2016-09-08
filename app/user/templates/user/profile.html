@@ -3,7 +3,12 @@
 {% load bootstrap3 %}
 
 {% block content %}
+    <h1 class="page-header">{{ user.first_name }} {{ user.last_name }}</h1>
+
+    <h3>Gender</h3>
     <p>{{ profile.gender }}</p>
+
+    <h3>Birthday</h3>
     <p>{{ profile.birthday }}</p>
 
     <a href="{% url 'user-profile-edit' request.user.id %}" class="btn btn-danger">Edit</a>

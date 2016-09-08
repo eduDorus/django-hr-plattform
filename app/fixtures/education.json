@@ -1,0 +1,26 @@
+[
+  {
+    "model": "company.education",
+    "pk": 1,
+    "fields": {
+      "degree": "Gymnasium / Fachmittelschule / Berufslehre EFZ",
+      "level": "3"
+    }
+  },
+  {
+    "model": "company.education",
+    "pk": 2,
+    "fields": {
+      "degree": "Universitaet / Fachhochschule FH / Hoehere Fachschule HF",
+      "level": "5"
+    }
+  },
+  {
+    "model": "company.education",
+    "pk": 3,
+    "fields": {
+      "degree": "PhD / Dr",
+      "level": "6"
+    }
+  }
+]

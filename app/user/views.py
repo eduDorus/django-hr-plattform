@@ -30,9 +30,6 @@ class UserFormView(View):
             user.set_password(password)
             user.save()
 
-            # Authenticate user
-            user = authenticate(username=username, password=password)
-
             # Create user profile
             gender = form.cleaned_data['gender']
             birthday = form.cleaned_data['birthday']
@@ -42,6 +39,9 @@ class UserFormView(View):
             profile.birthday = birthday
             profile.user = user
             profile.save()
+
+            # Authenticate user
+            user = authenticate(username=username, password=password)
 
             if user is not None:
 
@@ -62,4 +62,4 @@ class ProfileView(generic.DetailView):
 class ProfileEdit(generic.UpdateView):
     model = Profile
     template_name = 'user/form.html'
-    fields = ['gender', 'birthday', 'company_user']
+    fields = ['gender', 'birthday', 'company']

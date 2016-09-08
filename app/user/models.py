@@ -7,7 +7,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     gender = models.CharField(max_length=50)
     birthday = models.DateField()
-    company_user = models.BooleanField(default=False)
+    company = models.ForeignKey('company.Company', on_delete=None, null=True, blank=True)
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
@@ -16,6 +16,8 @@ class Profile(models.Model):
         return reverse('user-profile', kwargs={'pk': self.pk})
 
     def is_company_user(self):
-        return self.company_user
+        return self.company is not None
 
-
+    def get_company_id(self):
+        if self.company is not None:
+            return self.company.id

@@ -3,8 +3,20 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <p>{{ profile.name }}</p>
-    <p>{{ profile.description }}</p>
+    <h1 class="page-header">{{ company.name }}</h1>
+    <h3>Description</h3>
+    <p>{{ company.description }}</p>
 
-    <a href="{% url 'company-profile-edit' 1 %}" class="btn btn-danger">Edit</a>
+    <h3>Size</h3>
+    <p>The Company has around {{ company.size }} employees</p>
+
+    <h3>Sector</h3>
+    <p>{{ company.sector }}</p>
+
+    <p>For more information look on their website</p>
+    <a href="{{ company.website }}" target="_blank">View the Company Website</a>
+
+    <br/>
+
+    <a href="{% url 'company-profile-update' 1 %}" class="btn btn-danger">Edit</a>
 {% endblock %}

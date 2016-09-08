@@ -8,7 +8,7 @@ urlpatterns = [
 
     url(r'^registration/$', UserFormView.as_view(), name='registration'),
 
-    url(r'^profile/(?P<pk>[0-9]+)/$', ProfileView.as_view(), name='user-profile'),
-    url(r'^profile/(?P<pk>[0-9]+)/edit$', ProfileEdit.as_view(), name='user-profile-edit'),
+    url(r'^(?P<pk>[0-9]+)/profile/$', ProfileView.as_view(), name='user-profile'),
+    url(r'^(?P<pk>[0-9]+)/profile/edit/$', ProfileEdit.as_view(), name='user-profile-edit'),
 
 ]
