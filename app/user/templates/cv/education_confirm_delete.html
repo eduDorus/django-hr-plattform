@@ -1,0 +1,25 @@
+{% extends 'cv/confirm_delete.html' %}
+
+{% block object_view %}
+
+    <h1 class="page-header">Delete {{ education.title }}?</h1>
+    <table class="table table-no-border">
+        <tr>
+            <td>Specialisation</td>
+            <td>{{ education.specialization }}</td>
+        </tr>
+        <tr>
+            <td>School name</td>
+            <td>{{ education.school_name }}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{ education.location }}</td>
+        </tr>
+        <tr>
+            <td>Graduate year</td>
+            <td>{{ education.graduate_year.year }}</td>
+        </tr>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+<h1 class="page-header">Experience</h1>
+
+<div class="row">
+    {% if experience_list %}
+
+        {% for experience in experience_list %}
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>
+                            <a class="experience-panel user-panel-title"
+                               href="#">{{ experience.title }}</a>
+                            <span class="label label-default">{{ experience.position }}</span>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-no-border">
+                            <tr>
+                                <td>Specialisation</td>
+                                <td>{{ experience.employment_type }}</td>
+                            </tr>
+                            <tr>
+                                <td>Employer</td>
+                                <td>{{ experience.employer }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sector</td>
+                                <td>{{ experience.sector }}</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>{{ experience.location }}</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td>{{ experience.start_date.year }} - {{ experience.end_date.year }}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>{{ experience.description }}</td>
+                            </tr>
+                        </table>
+                        <a href="{% url 'experience-update' request.user.id experience.id %}">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                        <a href="{% url 'experience-delete' request.user.id experience.id %}">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+
+        <h4>You could add something like, I know a lot of places :)</h4>
+
+    {% endif %}
+
+</div>
+
+<a href="{% url 'experience-add' request.user.id %}" class="btn btn-link btn-block">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Did you gain a new experience?
+</a>
+
+

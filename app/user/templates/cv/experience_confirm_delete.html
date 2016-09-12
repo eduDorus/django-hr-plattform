@@ -1,0 +1,33 @@
+{% extends 'cv/confirm_delete.html' %}
+
+{% block object_view %}
+
+    <h1 class="page-header">Delete {{ experience.title }}?</h1>
+    <table class="table table-no-border">
+        <tr>
+            <td>Specialisation</td>
+            <td>{{ experience.employment_type }}</td>
+        </tr>
+        <tr>
+            <td>Employer</td>
+            <td>{{ experience.employer }}</td>
+        </tr>
+        <tr>
+            <td>Sector</td>
+            <td>{{ experience.sector }}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{ experience.location }}</td>
+        </tr>
+        <tr>
+            <td>Duration</td>
+            <td>{{ experience.start_date.year }} - {{ experience.end_date.year }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ experience.description }}</td>
+        </tr>
+    </table>
+
+{% endblock %}
