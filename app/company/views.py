@@ -94,7 +94,7 @@ class JobListView(generic.ListView):
 class JobCreateView(generic.CreateView):
     model = Job
     template_name = 'company/job_create.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'office']
+    fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
 
     def form_valid(self, form):
         form.instance.company = self.request.user.profile.company
@@ -104,7 +104,7 @@ class JobCreateView(generic.CreateView):
 class JobUpdateView(generic.UpdateView):
     model = Job
     template_name = 'company/job_update.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'office']
+    fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
 
 
 class JobDeleteView(generic.DeleteView):

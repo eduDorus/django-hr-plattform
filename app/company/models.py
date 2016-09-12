@@ -28,7 +28,7 @@ class Company(models.Model):
     size = models.IntegerField(choices=SIZE, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
-    permission_requests = models.ManyToManyField(User, related_name='permission_requests')
+    permission_requests = models.ManyToManyField(User, related_name='permission_requests', null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('company-profile', kwargs={'pk': self.pk})
@@ -43,6 +43,27 @@ class Education(models.Model):
 
     def __str__(self):
         return self.degree
+
+
+class ApplicationProcess(models.Model):
+    title = models.CharField(max_length=100)
+    company = models.ForeignKey(Company)
+
+    def __str__(self):
+        return self.title
+
+
+class ApplicationElement(models.Model):
+    application_process = models.ForeignKey(ApplicationProcess, on_delete=None)
+    title = models.CharField(max_length=100)
+    queue = models.ManyToManyField(User, blank=True, null=True)
+    next = models.ForeignKey('ApplicationElement', related_name='next_field', related_query_name='next_field',
+                             blank=True, null=True)
+    previous = models.ForeignKey('ApplicationElement', related_name='previous_field',
+                                 related_query_name='previous_field', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Job(models.Model):
@@ -80,10 +101,7 @@ class Job(models.Model):
 
     min_degree = models.ForeignKey(Education, on_delete=None)
 
-    applications = models.ManyToManyField(User)
-
-    # Softskills
-    office = models.CharField(max_length=100)
+    applications_process = models.ForeignKey(ApplicationProcess, on_delete=None)
 
     def get_absolute_url(self):
         return reverse('company-job-list', kwargs={'pk': 1})
