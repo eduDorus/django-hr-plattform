@@ -4,26 +4,22 @@
 
     {% for job in job_list %}
 
-        {% if job.has_applied %}
-            <div class="panel panel-success">
-        {% else %}
-            <div class="panel panel-default">
-        {% endif %}
-        <div class="panel-heading">
-            <a href="{% url 'user-job-detail' job.id %}"><h3 class="panel-title">{{ job.title }}
-                - {{ job.company.name }}</h3></a>
+        <div class="panel panel-default">
+        <a href="{% url 'user-job-detail' job.id %}">
+            <div class="panel-heading">
+                <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
+                <span class="label label-default">{{ job.created }}</span>
+                <span class="label label-info">{{ job.employment_grade }}%</span>
+                <span class="label label-warning">{{ job.min_degree }}</span>
             </div>
             <div class="panel-body">
-                <h3>Description</h3>
                 <p>{{ job.description }}</p>
-
-                <h4>Employment grade</h4>
-                <p>{{ job.employment_grade }} %</p>
-
             </div>
+            </a>
         </div>
+
         {% empty %}
-            <p>no objects</p>
+            <p>No job offers</p>
         {% endfor %}
 
 
