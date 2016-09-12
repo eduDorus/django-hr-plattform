@@ -80,6 +80,8 @@ class Job(models.Model):
 
     min_degree = models.ForeignKey(Education, on_delete=None)
 
+    applications = models.ManyToManyField(User)
+
     # Softskills
     office = models.CharField(max_length=100)
 

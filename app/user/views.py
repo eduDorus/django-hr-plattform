@@ -1,4 +1,7 @@
 from django.contrib.auth import login, authenticate
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
@@ -71,3 +74,18 @@ class JobListView(generic.ListView):
     template_name = 'user/job_list.html'
     context_object_name = 'job_list'
 
+
+class JobDetailView(generic.DetailView):
+    model = Job
+    template_name = 'user/job_detail.html'
+    context_object_name = 'job'
+
+
+def apply_for_job(request, pk):
+    if request.method == 'POST':
+        job = Job.objects.get(pk=pk)
+        if not job.applications.filter(pk=request.user.id).exists():
+            job.applications.add(request.user)
+        return HttpResponseRedirect(reverse_lazy('user-job-list'))
+    else:
+        return HttpResponse(request)

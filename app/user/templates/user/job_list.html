@@ -4,9 +4,14 @@
 
     {% for job in job_list %}
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ job.title }} - {{ job.company.name }}</h3>
+        {% if job.has_applied %}
+            <div class="panel panel-success">
+        {% else %}
+            <div class="panel panel-default">
+        {% endif %}
+        <div class="panel-heading">
+            <a href="{% url 'user-job-detail' job.id %}"><h3 class="panel-title">{{ job.title }}
+                - {{ job.company.name }}</h3></a>
             </div>
             <div class="panel-body">
                 <h3>Description</h3>
@@ -17,9 +22,9 @@
 
             </div>
         </div>
-    {% empty %}
-        <p>no objects</p>
-    {% endfor %}
+        {% empty %}
+            <p>no objects</p>
+        {% endfor %}
 
 
 {% endblock %}
