@@ -50,7 +50,7 @@ class ApplicationProcess(models.Model):
     company = models.ForeignKey(Company)
 
     def __str__(self):
-        return self.title
+        return self.title + " template from " + self.company.name
 
 
 class ApplicationElement(models.Model):
@@ -58,12 +58,12 @@ class ApplicationElement(models.Model):
     title = models.CharField(max_length=100)
     queue = models.ManyToManyField(User, blank=True)
     next = models.ForeignKey('ApplicationElement', related_name='next_field', related_query_name='next_field',
-                             blank=True)
+                             blank=True, null=True)
     previous = models.ForeignKey('ApplicationElement', related_name='previous_field',
-                                 related_query_name='previous_field', blank=True)
+                                 related_query_name='previous_field', blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.title + " from " + self.application_process.title + " template, created by company " + self.application_process.company.name
 
 
 class Job(models.Model):
@@ -102,6 +102,8 @@ class Job(models.Model):
     min_degree = models.ForeignKey(Education, on_delete=None)
 
     applications_process = models.ForeignKey(ApplicationProcess, on_delete=None)
+
+    created = models.DateField(timezone.now())
 
     def get_absolute_url(self):
         return reverse('company-job-list', kwargs={'pk': 1})

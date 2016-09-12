@@ -3,7 +3,7 @@
 {% load bootstrap3 %}
 
 {% block back_button %}
-    <a href="{% url 'cv-index' %}" class="btn btn-default pull-left btn-back">
+    <a href="{% url 'user-cv-index' %}" class="btn btn-default pull-left btn-back">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to CV
     </a>
 {% endblock %}
@@ -13,7 +13,7 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="form-group">
-            <button href="{% url 'cv-index' %}" type="submit" class="btn btn-success btn-block">
+            <button href="{% url 'user-cv-index' %}" type="submit" class="btn btn-success btn-block">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
             </button>
         </div>

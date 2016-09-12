@@ -64,7 +64,16 @@
 
                     {% if user.profile.is_company_user %}
 
-                        <li><a href="{% url 'company-profile' request.user.profile.company.id %}">Company Profile</a></li>
+                        <li>
+                            <a href="{% url 'company-profile' request.user.profile.company.id %}">Company Profile</a>
+                        </li>
+
+                    {% else %}
+
+                        <li>
+                            <a href="{% url 'user-cv-index' %}">CV</a>
+                        </li>
+
 
                     {% endif %}
 

@@ -111,7 +111,7 @@ class EducationCreate(generic.CreateView):
     fields = ['title', 'academic_level', 'specialization', 'school_name', 'graduate_year']
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('cv-index')
+        return reverse_lazy('user-cv-index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -132,7 +132,7 @@ class EducationUpdate(generic.UpdateView):
 class EducationDelete(generic.DeleteView):
     model = Education
     template_name = 'cv/education_confirm_delete.html'
-    success_url = reverse_lazy('cv-index')
+    success_url = reverse_lazy('user-cv-index')
 
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
@@ -146,7 +146,7 @@ class ExperienceCreate(generic.CreateView):
     fields = ['title', 'position', 'employment_type', 'employer', 'start_date', 'end_date', 'description']
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('cv-index')
+        return reverse_lazy('user-cv-index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -167,7 +167,7 @@ class ExperienceUpdate(generic.UpdateView):
 class ExperienceDelete(generic.DeleteView):
     model = Experience
     template_name = 'cv/experience_confirm_delete.html'
-    success_url = reverse_lazy('cv-index')
+    success_url = reverse_lazy('user-cv-index')
 
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
@@ -177,7 +177,7 @@ class ExperienceDelete(generic.DeleteView):
 
 class SkillList(generic.ListView):
     model = Skill
-    context_object_name = 'skill_list'
+    context_object_name = 'user-skill_list'
 
 
 class SkillCreate(generic.CreateView):
@@ -186,7 +186,7 @@ class SkillCreate(generic.CreateView):
     fields = ['name', 'level']
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('cv-index')
+        return reverse_lazy('user-cv-index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -207,7 +207,7 @@ class SkillUpdate(generic.UpdateView):
 class SkillDelete(generic.DeleteView):
     model = Skill
     template_name = 'cv/skill_confirm_delete.html'
-    success_url = reverse_lazy('cv-index')
+    success_url = reverse_lazy('user-cv-index')
 
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
@@ -217,7 +217,7 @@ class SkillDelete(generic.DeleteView):
 
 class LanguageList(generic.ListView):
     model = Language
-    context_object_name = 'language_list'
+    context_object_name = 'user-language_list'
 
 
 class LanguageCreate(generic.CreateView):
@@ -226,7 +226,7 @@ class LanguageCreate(generic.CreateView):
     fields = ['language', 'level']
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('cv-index')
+        return reverse_lazy('user-cv-index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -247,7 +247,7 @@ class LanguageUpdate(generic.UpdateView):
 class LanguageDelete(generic.DeleteView):
     model = Language
     template_name = 'cv/language_confirm_delete.html'
-    success_url = reverse_lazy('cv-index')
+    success_url = reverse_lazy('user-cv-index')
 
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:

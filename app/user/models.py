@@ -41,7 +41,7 @@ class Education(models.Model):
     graduate_year = models.DateField()
 
     def get_absolute_url(self):
-        return reverse('cv-index')
+        return reverse('user-cv-index')
 
     def __str__(self):
         return self.title
@@ -77,7 +77,7 @@ class Experience(models.Model):
     description = models.CharField(max_length=500, blank=True)
 
     def get_absolute_url(self):
-        return reverse('cv-index')
+        return reverse('user-cv-index')
 
     class Meta:
         ordering = ['-end_date']
@@ -101,7 +101,7 @@ class Skill(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('cv-index')
+        return reverse('user-cv-index')
 
 
 class Language(models.Model):
@@ -128,5 +128,5 @@ class Language(models.Model):
         return self.language
 
     def get_absolute_url(self):
-        return reverse('cv-index')
+        return reverse('user-cv-index')
 

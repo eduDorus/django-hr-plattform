@@ -9,14 +9,13 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ job.title }}</h3>
+                <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
+                <span class="label label-default">{{ job.created }}</span>
+                <span class="label label-info">{{ job.employment_grade }}%</span>
+                <span class="label label-warning">{{ job.min_degree }}</span>
             </div>
             <div class="panel-body">
-                <h3>Description</h3>
                 <p>{{ job.description }}</p>
-
-                <h4>Employment grade</h4>
-                <p>{{ job.employment_grade }} %</p>
 
                 <a href="{% url 'company-job-update' job.id %}" class="btn btn-warning">Update</a>
                 <a href="{% url 'company-job-delete' job.id %}" class="btn btn-danger">Delete</a>

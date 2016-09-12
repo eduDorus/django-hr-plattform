@@ -4,8 +4,10 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
 
+from user.models import Profile
+
 from .forms import CompanyUserForm
-from .models import Company, Job
+from .models import Company, Job, ApplicationElement, ApplicationProcess
 
 
 # Create your views here.
@@ -16,6 +18,28 @@ def hello_world(request):
 class CompanyUserFormView(View):
     form_class = CompanyUserForm
     template_name = 'company/registration.html'
+
+    def create_company(self, company_name, user_object):
+        try:
+            company = Company.objects.get(name=company_name)
+            company.permission_requests.add(user_object)
+        except Company.DoesNotExist:
+            company = Company(name=company_name)
+            company.save()
+
+            # Create default application process
+            application_process = ApplicationProcess(title='default', company=company)
+            application_process.save()
+
+            # Create default application elements
+            ApplicationElement(title='Application Inbox', application_process=application_process).save()
+            ApplicationElement(title='Telefon Screening', application_process=application_process).save()
+            ApplicationElement(title='Interview', application_process=application_process).save()
+            ApplicationElement(title='Sign Contract', application_process=application_process).save()
+
+            company.applicationprocess_set.add(application_process)
+
+        return company
 
     # Show blank form
     def get(self, request):
@@ -28,46 +52,44 @@ class CompanyUserFormView(View):
 
         if form.is_valid():
 
-            user = form.save(commit=False)
+            user_object = form.save(commit=False)
 
             # Clean data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             company_name = form.cleaned_data['company_name']
 
-            user.set_password(password)
-            user.save()
+            user_object.set_password(password)
+            user_object.save()
 
             # Create user profile
             gender = form.cleaned_data['gender']
             birthday = form.cleaned_data['birthday']
 
-            profile = user.models.Profile()
+            # Create Company
+            company = self.create_company(company_name, user_object)
+
+
+            profile = Profile()
             profile.gender = gender
             profile.birthday = birthday
-            profile.user = user
+            profile.user = user_object
+            profile.company = company
             profile.save()
 
             # authenticate user
-            user = authenticate(username=username, password=password)
+            user_object = authenticate(username=username, password=password)
 
-            # company logic
-            try:
-                company = Company.objects.get(name=company_name)
-                company.permission_requests.add(user)
-            except Company.DoesNotExist:
-                company = Company(name=company_name)
-                company.save()
-                profile.company = company
+            if user_object is not None:
 
-            if user is not None:
-
-                if user.is_active:
-                    login(request, user)
+                if user_object.is_active:
+                    login(request, user_object)
 
                     return redirect('index')
 
         return render(request, self.template_name, {'form': form})
+
+
 
 
 class CompanyProfileDetailView(generic.DetailView):
