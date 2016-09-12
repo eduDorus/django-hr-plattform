@@ -16,10 +16,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, primary_key=True, serialize=False)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, serialize=False, primary_key=True)),
                 ('gender', models.CharField(max_length=50)),
                 ('birthday', models.DateField()),
-                ('company', models.ForeignKey(null=True, to='company.Company', blank=True, on_delete=None)),
+                ('company', models.ForeignKey(to='company.Company', on_delete=None, null=True, blank=True)),
             ],
         ),
     ]

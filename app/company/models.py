@@ -28,7 +28,7 @@ class Company(models.Model):
     size = models.IntegerField(choices=SIZE, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
-    permission_requests = models.ManyToManyField(User, related_name='permission_requests', null=True, blank=True)
+    permission_requests = models.ManyToManyField(User, related_name='permission_requests', blank=True)
 
     def get_absolute_url(self):
         return reverse('company-profile', kwargs={'pk': self.pk})
@@ -56,11 +56,11 @@ class ApplicationProcess(models.Model):
 class ApplicationElement(models.Model):
     application_process = models.ForeignKey(ApplicationProcess, on_delete=None)
     title = models.CharField(max_length=100)
-    queue = models.ManyToManyField(User, blank=True, null=True)
+    queue = models.ManyToManyField(User, blank=True)
     next = models.ForeignKey('ApplicationElement', related_name='next_field', related_query_name='next_field',
-                             blank=True, null=True)
+                             blank=True)
     previous = models.ForeignKey('ApplicationElement', related_name='previous_field',
-                                 related_query_name='previous_field', blank=True, null=True)
+                                 related_query_name='previous_field', blank=True)
 
     def __str__(self):
         return self.title
