@@ -69,7 +69,6 @@ class CompanyUserFormView(View):
             # Create Company
             company = self.create_company(company_name, user_object)
 
-
             profile = Profile()
             profile.gender = gender
             profile.birthday = birthday
@@ -90,8 +89,6 @@ class CompanyUserFormView(View):
         return render(request, self.template_name, {'form': form})
 
 
-
-
 class CompanyProfileDetailView(generic.DetailView):
     model = Company
     template_name = 'company/profile.html'
@@ -101,7 +98,7 @@ class CompanyProfileDetailView(generic.DetailView):
 class CompanyProfileUpdateView(generic.UpdateView):
     model = Company
     template_name = 'company/form.html'
-    fields = ['name', 'description', 'sector', 'size', 'website']
+    fields = ['logo', 'name', 'description', 'sector', 'size', 'website']
 
 
 class JobListView(generic.ListView):

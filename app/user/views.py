@@ -32,6 +32,10 @@ class UserFormView(View):
             # Clean data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+
+            user.first_name = form.cleaned_data['first_name'].title()
+            user.last_name = form.cleaned_data['last_name'].title()
+            user.email = form.cleaned_data['email'].lower()
             user.set_password(password)
             user.save()
 
@@ -67,7 +71,7 @@ class ProfileView(generic.DetailView):
 class ProfileEdit(generic.UpdateView):
     model = Profile
     template_name = 'user/form.html'
-    fields = ['gender', 'birthday', 'company']
+    fields = ['avatar', 'gender', 'birthday', 'company']
 
 
 class JobListView(generic.ListView):

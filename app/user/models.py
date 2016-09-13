@@ -1,10 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    avatar = models.ImageField(upload_to='avatars', default='media/avatars/default-avatar.jpg')
+    avatar_thumbnail = ImageSpecField(source='avatar',
+                                      processors=[ResizeToFill(150, 150)],
+                                      format='JPEG',
+                                      options={'quality': 100})
+
     gender = models.CharField(max_length=50)
     birthday = models.DateField()
     company = models.ForeignKey('company.Company', on_delete=None, null=True, blank=True)

@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1 class="page-header">{{ company.name }}</h1>
+
+    <img src="{{ company.logo_thumbnail.url }}" class="img-responsive pull-right"/>
+
     <h3>Description</h3>
     <p>{{ company.description }}</p>
 

@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 
 class Sector(models.Model):
@@ -29,6 +31,12 @@ class Company(models.Model):
     sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
     permission_requests = models.ManyToManyField(User, related_name='permission_requests', blank=True)
+
+    logo = models.ImageField(upload_to='logos', default='media/logos/default-logo.jpg')
+    logo_thumbnail = ImageSpecField(source='logo',
+                                      processors=[ResizeToFill(150, 150)],
+                                      format='JPEG',
+                                      options={'quality': 100})
 
     def get_absolute_url(self):
         return reverse('company-profile', kwargs={'pk': self.pk})
