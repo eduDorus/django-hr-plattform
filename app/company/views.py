@@ -11,31 +11,37 @@ from .forms import CompanyUserForm, ApplicationProcessForm, ApplicationElementFo
 from .models import Company, Job, ApplicationElement, ApplicationProcess
 
 
+# Create your views here.
+def hello_world(request):
+    return render(request, template_name='company/index.html')
+
+
+def create_company(company_name, user_object):
+    try:
+        company = Company.objects.get(name=company_name)
+        company.permission_requests.add(user_object)
+    except Company.DoesNotExist:
+        company = Company(name=company_name)
+        company.save()
+
+        # Create default application process
+        application_process = ApplicationProcess(title='default', company=company)
+        application_process.save()
+
+        # Create default application elements
+        ApplicationElement(title='Application Inbox', application_process=application_process).save()
+        ApplicationElement(title='Telefon Screening', application_process=application_process).save()
+        ApplicationElement(title='Interview', application_process=application_process).save()
+        ApplicationElement(title='Sign Contract', application_process=application_process).save()
+
+        company.applicationprocess_set.add(application_process)
+
+    return company
+
+
 class CompanyUserFormView(View):
     form_class = CompanyUserForm
     template_name = 'company/registration.html'
-
-    def create_company(self, company_name, user_object):
-        try:
-            company = Company.objects.get(name=company_name)
-            company.permission_requests.add(user_object)
-        except Company.DoesNotExist:
-            company = Company(name=company_name)
-            company.save()
-
-            # Create default application process
-            application_process = ApplicationProcess(title='default', company=company)
-            application_process.save()
-
-            # Create default application elements
-            ApplicationElement(title='Application Inbox', application_process=application_process).save()
-            ApplicationElement(title='Telefon Screening', application_process=application_process).save()
-            ApplicationElement(title='Interview', application_process=application_process).save()
-            ApplicationElement(title='Sign Contract', application_process=application_process).save()
-
-            company.applicationprocess_set.add(application_process)
-
-        return company
 
     # Show blank form
     def get(self, request):
@@ -63,7 +69,7 @@ class CompanyUserFormView(View):
             birthday = form.cleaned_data['birthday']
 
             # Create Company
-            company = self.create_company(company_name, user_object)
+            company = create_company(company_name, user_object)
 
             profile = Profile()
             profile.gender = gender
@@ -87,20 +93,29 @@ class CompanyUserFormView(View):
 
 class CompanyProfileDetailView(generic.DetailView):
     model = Company
-    template_name = 'company/profile.html'
+    template_name = 'company/company_profile_detail.html'
     context_object_name = 'company'
 
 
 class CompanyProfileUpdateView(generic.UpdateView):
     model = Company
-    template_name = 'company/form.html'
+    template_name = 'company/company_profile_update.html'
     fields = ['logo', 'name', 'description', 'sector', 'size', 'website']
 
 
 class JobListView(generic.ListView):
     model = Job
-    template_name = 'company/job_list.html'
+    template_name = 'job/job_list.html'
     context_object_name = 'jobs_list'
+
+    def get_queryset(self):
+        return Job.objects.filter(company=self.request.user.profile.company.id)
+
+
+class JobDetailView(generic.DetailView):
+    model = Job
+    template_name = 'job/job_detail.html'
+    context_object_name = 'job'
 
     def get_queryset(self):
         return Job.objects.filter(company=self.request.user.profile.company.id)
@@ -108,7 +123,7 @@ class JobListView(generic.ListView):
 
 class JobCreateView(generic.CreateView):
     model = Job
-    template_name = 'company/job_create.html'
+    template_name = 'job/job_create.html'
     fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
 
     def form_valid(self, form):
@@ -118,13 +133,13 @@ class JobCreateView(generic.CreateView):
 
 class JobUpdateView(generic.UpdateView):
     model = Job
-    template_name = 'company/job_update.html'
+    template_name = 'job/job_update.html'
     fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
 
 
 class JobDeleteView(generic.DeleteView):
     model = Job
-    template_name = 'company/job_delete.html'
+    template_name = 'job/job_delete.html'
     context_object_name = 'job'
 
     def get_success_url(self):

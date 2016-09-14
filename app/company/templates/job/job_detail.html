@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1 class="page-header">{{ job.title }}</h1>
+
+    <img src="{{ job.company.logo_thumbnail.url }}" class="img-responsive pull-right"/>
+
+    <h3>Description</h3>
+    <p>{{ job.description }}</p>
+
+    <h3>Sector</h3>
+    <p>{{ job.company.sector }}</p>
+
+    <br/>
+
+    <a href="{% url 'company-job-update' job.id %}" class="btn btn-danger">Update Job</a>
+{% endblock %}
