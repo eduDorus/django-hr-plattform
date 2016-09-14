@@ -153,7 +153,7 @@ class JobDeleteView(generic.DeleteView):
     slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-job-list', kwargs={'pk': self.request.user.profile.company.id})
+        return reverse_lazy('company-job-list', kwargs={'slug': self.request.user.profile.company.slug})
 
 
 class FormsetMixin(object):
@@ -198,10 +198,15 @@ class FormsetMixin(object):
         return kwargs
 
     def form_valid(self, form, formset):
-        self.object = form.save()
+        application_process = form.save(commit=False)
+        company_id = self.request.user.profile.company.id
+        application_process.company = Company.objects.get(id = company_id)
+        application_process.save()
+
+        self.object = application_process
         formset.instance = self.object
         formset.save()
-        return redirect(self.object.get_absolute_url())
+        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, formset):
         return self.render_to_response(self.get_context_data(form=form, formset=formset))
@@ -211,6 +216,7 @@ class ApplicationProcessView(generic.ListView):
     model = ApplicationProcess
     template_name = 'application_process/application_process_list.html'
     context_object_name = 'application_process_list'
+    slug_url_kwarg = 'company_slug'
 
     def get_queryset(self):
         return ApplicationProcess.objects.filter(company=self.request.user.profile.company.id)
@@ -221,27 +227,29 @@ class ApplicationProcessCreateView(FormsetMixin, generic.CreateView):
     formset_class = ApplicationElementFormSet
     model = ApplicationProcess
     template_name = 'application_process/application_process_form.html'
+    slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
+        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
-class ApplicationProcessUpdateView(generic.UpdateView):
+class ApplicationProcessUpdateView(FormsetMixin, generic.UpdateView):
     form_class = ApplicationProcessForm
     formset_class = ApplicationElementFormSet
     model = ApplicationProcess
     is_update_view = True
     template_name = 'application_process/application_process_form.html'
+    slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
-
+        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
 class ApplicationProcessDeleteView(generic.DeleteView):
     model = ApplicationProcess
     template_name = 'application_process/application_process_delete.html'
     context_object_name = 'application_process'
+    slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
+        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})

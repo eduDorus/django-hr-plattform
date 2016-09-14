@@ -18,13 +18,13 @@ urlpatterns = [
     url(r'^(?P<company_slug>[\w-]+)/profile/$', CompanyProfileDetailView.as_view(), name='company-profile'),
     url(r'^(?P<company_slug>[\w-]+)/profile/update/$', CompanyProfileUpdateView.as_view(), name='company-profile-update'),
 
-    url(r'^(?P<pk>[0-9]+)/application-process/$', ApplicationProcessView.as_view(),
+    url(r'^(?P<company_slug>[\w-]+)/application-process/$', ApplicationProcessView.as_view(),
         name='company-application-process-list'),
-    url(r'^(?P<pk>[0-9]+)/application-process/create/$', ApplicationProcessCreateView.as_view(),
+    url(r'^(?P<company_slug>[\w-]+)/application-process/create/$', ApplicationProcessCreateView.as_view(),
         name='company-application-process-create'),
-    url(r'^(?P<pk>[0-9]+)/application-process/update/(?P<pk_a>[0-9]+)/$', ApplicationProcessUpdateView.as_view(),
+    url(r'^(?P<company_slug>[\w-]+)/application-process/update/(?P<pk>[0-9]+)/$', ApplicationProcessUpdateView.as_view(),
         name='company-application-process-update'),
-    url(r'^(?P<pk>[0-9]+)/application-process/delete/(?P<pk_a>[0-9]+)/$', ApplicationProcessDeleteView.as_view(),
+    url(r'^(?P<company_slug>[\w-]+)/application-process/delete/(?P<pk>[0-9]+)/$', ApplicationProcessDeleteView.as_view(),
         name='company-application-process-delete'),
 
 ]

@@ -12,12 +12,13 @@
     $(function() {
         $('.add-application-element').click(function(ev){
             ev.preventDefault();
-            var count = parseInt($('#id_application-element_set-TOTAL_FORMS').attr('value'), 10);
+            var count = parseInt($('#id_applicationelement_set-TOTAL_FORMS').attr('value'), 10);
+            console.log(count);
             var tmplMarkup = $('#application-element-template').html();
-            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
             console.log(compiledTmpl);
             $('div.application-elements').append(compiledTmpl);
-            $('#id_application-element_set-TOTAL_FORMS').attr('value', count + 1);
+            $('#id_applicationelement_set-TOTAL_FORMS').attr('value', count + 1);
         });
     });
     </script>
@@ -43,6 +44,7 @@
 
          <div class="application-elements form-inline">
             {% for form in formset %}
+                {{ form.id }}
                 {% bootstrap_form form %}
             {% endfor %}
         </div>

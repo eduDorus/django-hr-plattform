@@ -73,7 +73,7 @@ class ApplicationProcess(models.Model):
 
 
 class ApplicationElement(models.Model):
-    application_process = models.ForeignKey(ApplicationProcess, on_delete=None)
+    application_process = models.ForeignKey(ApplicationProcess, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     queue = models.ManyToManyField(User, blank=True)
     next = models.ForeignKey('ApplicationElement', related_name='next_field', related_query_name='next_field',
