@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
 
@@ -22,7 +22,7 @@ class Profile(models.Model):
         return self.user.first_name + " " + self.user.last_name
 
     def get_absolute_url(self):
-        return reverse('user-profile', kwargs={'pk': self.pk})
+        return reverse_lazy('user-profile', kwargs={'username': self.user.username})
 
     def is_company_user(self):
         return self.company is not None
@@ -50,7 +50,7 @@ class Education(models.Model):
     graduate_year = models.DateField()
 
     def get_absolute_url(self):
-        return reverse('user-cv-index')
+        return reverse('user-cv-index', kwargs={'username': self.user.username})
 
     def __str__(self):
         return self.title
@@ -86,7 +86,7 @@ class Experience(models.Model):
     description = models.CharField(max_length=500, blank=True)
 
     def get_absolute_url(self):
-        return reverse('user-cv-index')
+        return reverse('user-cv-index', kwargs={'username': self.user.username})
 
     class Meta:
         ordering = ['-end_date']
@@ -110,7 +110,7 @@ class Skill(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('user-cv-index')
+        return reverse('user-cv-index', kwargs={'username': self.user.username})
 
 
 class Language(models.Model):
@@ -137,5 +137,4 @@ class Language(models.Model):
         return self.language
 
     def get_absolute_url(self):
-        return reverse('user-cv-index')
-
+        return reverse('user-cv-index', kwargs={'username': self.user.username})

@@ -13,7 +13,7 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="form-group">
-            <button href="{% url 'user-cv-index' %}" type="submit" class="btn btn-success btn-block">
+            <button href="{% url 'user-cv-index' user.username %}" type="submit" class="btn btn-success btn-block">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
             </button>
         </div>

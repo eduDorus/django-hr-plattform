@@ -13,10 +13,10 @@
                     </div>
                     <div class="panel-body">
                         <p>Level: {{ language.level }}</p>
-                        <a href="{% url 'user-language-update' request.user.id language.id %}">
+                        <a href="{% url 'user-language-update' user.username language.id %}">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
-                        <a href="{% url 'user-language-delete' request.user.id language.id %}">
+                        <a href="{% url 'user-language-delete' user.username language.id %}">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -29,7 +29,7 @@
 
 </div>
 
-<a href="{% url 'user-language-add' request.user.id %}" class="btn btn-link btn-block">
+<a href="{% url 'user-language-add' user.username %}" class="btn btn-link btn-block">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New language
 </a>
 

@@ -16,6 +16,5 @@
     <p>{{ profile.birthday }}</p>
 
 
-
-    <a href="{% url 'user-profile-edit' request.user.id %}" class="btn btn-danger">Edit</a>
+    <a href="{% url 'user-profile-edit' user.username %}" class="btn btn-danger">Edit</a>
 {% endblock %}
