@@ -67,6 +67,9 @@
                         <li>
                             <a href="{% url 'company-profile' request.user.profile.company.id %}">Company Profile</a>
                         </li>
+                        <li>
+                            <a href="{% url 'company-application-process-list' request.user.profile.company.id %}">Application Processes</a>
+                        </li>
 
                     {% else %}
 

@@ -3,16 +3,12 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
+from django.http import HttpResponseRedirect
 
 from user.models import Profile
 
-from .forms import CompanyUserForm
+from .forms import CompanyUserForm, ApplicationProcessForm, ApplicationElementFormSet
 from .models import Company, Job, ApplicationElement, ApplicationProcess
-
-
-# Create your views here.
-def hello_world(request):
-    return render(request, template_name='company/index.html')
 
 
 class CompanyUserFormView(View):
@@ -133,3 +129,62 @@ class JobDeleteView(generic.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('company-job-list', kwargs={'pk': self.request.user.profile.company.id})
+
+
+class ApplicationProcessView(generic.ListView):
+    model = ApplicationProcess
+    template_name = 'application_process/application_process_list.html'
+    context_object_name = 'application_process_list'
+
+    def get_queryset(self):
+        return ApplicationProcess.objects.filter(company=self.request.user.profile.company.id)
+
+
+class ApplicationProcessCreateView(generic.CreateView):
+    form_class = ApplicationProcessForm
+    model = ApplicationProcess
+    template_name = 'application_process/application_process_create.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        application_element_form = ApplicationElementFormSet()
+        return self.render_to_response(self.get_context_data(form=form, application_element_form=application_element_form))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        application_element_form = ApplicationElementFormSet(self.request.POST)
+        if (form.is_valid() and application_element_form.is_valid()):
+            return self.form_valid(form, application_element_form)
+        else:
+            return self.form_invalid(form, application_element_form)
+
+    def form_valid(self, form, application_element_form):
+        self.object = form.save()
+        application_element_form.instance = self.object
+        application_element_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, application_element_form):
+        return self.render_to_response(self.get_context_data(form=form, application_element_form=application_element_form,))
+
+    def get_success_url(self):
+        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
+
+
+class ApplicationProcessUpdateView(generic.UpdateView):
+    model = ApplicationProcess
+    template_name = 'application_process/application_process_update.html'
+    fields = ['title']
+
+
+class ApplicationProcessDeleteView(generic.DeleteView):
+    model = ApplicationProcess
+    template_name = 'application_process/application_process_delete.html'
+    context_object_name = 'application_process'
+
+    def get_success_url(self):
+        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})

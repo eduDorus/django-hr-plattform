@@ -3,6 +3,7 @@
 {% load bootstrap3 %}
 
 {% block content %}
+
     <form action="" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
@@ -11,11 +12,7 @@
         {% endblock %}
 
         {% buttons %}
-
-            {% block buttons %}
-
-            {% endblock %}
-
+            {% block buttons %}{% endblock %}
         {% endbuttons %}
     </form>
 

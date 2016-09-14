@@ -1,6 +1,7 @@
 from django import forms
+from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-
+from .models import ApplicationProcess, ApplicationElement
 
 class CompanyUserForm(forms.ModelForm):
     GENDER = (
@@ -20,3 +21,17 @@ class CompanyUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'gender', 'first_name', 'last_name', 'birthday', 'email', 'password', 'company_name']
+
+
+class ApplicationProcessForm(forms.ModelForm):
+    class Meta:
+        model = ApplicationProcess
+        fields = ['title']
+
+
+# class ApplicationElementForm(forms.ModelForm):
+#     class Meta:
+#         model = ApplicationElement
+#         fields = ['title']
+
+ApplicationElementFormSet = inlineformset_factory(ApplicationProcess, ApplicationElement, fields=('title',))
