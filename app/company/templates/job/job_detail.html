@@ -15,5 +15,5 @@
 
     <br/>
 
-    <a href="{% url 'company-job-update' job.id %}" class="btn btn-danger">Update Job</a>
+    <a href="{% url 'company-job-update' user.profile.company.slug job.id %}" class="btn btn-danger">Update Job</a>
 {% endblock %}

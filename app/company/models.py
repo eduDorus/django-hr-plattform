@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils import timezone
+from django.utils.text import slugify
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
 
@@ -34,20 +36,21 @@ class Company(models.Model):
     )
 
     name = models.CharField(max_length=150)
+    slug = models.SlugField(unique=True)
     description = models.TextField(null=True, blank=True, max_length=1500)
     size = models.IntegerField(choices=SIZE, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=None, null=True, blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
     permission_requests = models.ManyToManyField(User, related_name='permission_requests', blank=True)
 
-    logo = models.ImageField(upload_to='logos', default='media/logos/default-logo.jpg')
+    logo = models.ImageField(upload_to='media/logos', default='media/logos/default-logo.jpg')
     logo_thumbnail = ImageSpecField(source='logo',
                                     processors=[ResizeToFill(150, 150)],
                                     format='JPEG',
                                     options={'quality': 100})
 
     def get_absolute_url(self):
-        return reverse('company-profile', kwargs={'pk': self.pk})
+        return reverse('company-profile', kwargs={'company_slug': self.slug})
 
     def __str__(self):
         return self.name
@@ -161,3 +164,16 @@ class Preference(models.Model):
 
     def __str__(self):
         return "%s: %s" % (self.job.title, self.earning)
+
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if instance.slug is None:
+        slug = slugify(instance.name)
+        print(slug)
+        exists = Company.objects.filter(slug=slug).exists()
+        if exists:
+            slug = "%s-%s" % (slug, instance.id)
+        instance.slug = slug
+
+
+pre_save.connect(pre_save_post_receiver, sender=Company)

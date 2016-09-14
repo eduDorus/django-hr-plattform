@@ -9,14 +9,14 @@ urlpatterns = [
 
     url(r'^registration/$', CompanyUserFormView.as_view(), name='company-registration'),
 
-    url(r'^(?P<pk>[0-9]+)/jobs/$', JobListView.as_view(), name='company-job-list'),
-    url(r'^(?P<pk>[0-9]+)/jobs/create/$', JobCreateView.as_view(), name='company-job-create'),
-    url(r'^(?P<pk>[0-9]+)/jobs/detail/$', JobDetailView.as_view(), name='company-job-detail'),
-    url(r'^(?P<pk>[0-9]+)/jobs/update/$', JobUpdateView.as_view(), name='company-job-update'),
-    url(r'^(?P<pk>[0-9]+)/jobs/delete/$', JobDeleteView.as_view(), name='company-job-delete'),
+    url(r'^(?P<company_slug>[\w-]+)/job-list/$', JobListView.as_view(), name='company-job-list'),
+    url(r'^(?P<company_slug>[\w-]+)/job/create/$', JobCreateView.as_view(), name='company-job-create'),
+    url(r'^(?P<company_slug>[\w-]+)/job/(?P<pk>[0-9]+)/detail/$', JobDetailView.as_view(), name='company-job-detail'),
+    url(r'^(?P<company_slug>[\w-]+)/job/(?P<pk>[0-9]+)/update/$', JobUpdateView.as_view(), name='company-job-update'),
+    url(r'^(?P<company_slug>[\w-]+)/job/(?P<pk>[0-9]+)/delete/$', JobDeleteView.as_view(), name='company-job-delete'),
 
-    url(r'^(?P<pk>[0-9]+)/profile/$', CompanyProfileDetailView.as_view(), name='company-profile'),
-    url(r'^(?P<pk>[0-9]+)/profile/update/$', CompanyProfileUpdateView.as_view(), name='company-profile-update'),
+    url(r'^(?P<company_slug>[\w-]+)/profile/$', CompanyProfileDetailView.as_view(), name='company-profile'),
+    url(r'^(?P<company_slug>[\w-]+)/profile/update/$', CompanyProfileUpdateView.as_view(), name='company-profile-update'),
 
     url(r'^(?P<pk>[0-9]+)/application-process/$', ApplicationProcessView.as_view(),
         name='company-application-process-list'),

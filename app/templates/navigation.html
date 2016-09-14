@@ -21,7 +21,7 @@
 
                     {% if user.profile.is_company_user %}
 
-                        <li><a href="{% url 'company-job-list' request.user.profile.company.id %}">Job offers</a></li>
+                        <li><a href="{% url 'company-job-list' request.user.profile.company.slug %}">Job offers</a></li>
 
                         <li><a href="#">Applications</a></li>
 
@@ -65,7 +65,7 @@
                     {% if user.profile.is_company_user %}
 
                         <li>
-                            <a href="{% url 'company-profile' request.user.profile.company.id %}">Company Profile</a>
+                            <a href="{% url 'company-profile' request.user.profile.company.slug %}">Company Profile</a>
                         </li>
                         <li>
                             <a href="{% url 'company-application-process-list' request.user.profile.company.id %}">Application Processes</a>

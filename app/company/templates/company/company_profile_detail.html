@@ -3,7 +3,7 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1 class="page-header">{{ company.name }}</h1>
+    <h1 class="page-header">{{ company.name }} - {{ company.slug }}</h1>
 
     <img src="{{ company.logo_thumbnail.url }}" class="img-responsive pull-right"/>
 
@@ -21,5 +21,5 @@
 
     <br/>
 
-    <a href="{% url 'company-profile-update' user.profile.company.id %}" class="btn btn-danger">Edit</a>
+    <a href="{% url 'company-profile-update' user.profile.company.slug %}" class="btn btn-danger">Edit</a>
 {% endblock %}

@@ -59,6 +59,9 @@ class CompanyUserFormView(View):
             # Clean data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            user_object.first_name = form.cleaned_data['first_name'].title()
+            user_object.last_name = form.cleaned_data['last_name'].title()
+            user_object.email = form.cleaned_data['email'].lower()
             company_name = form.cleaned_data['company_name']
 
             user_object.set_password(password)
@@ -95,27 +98,31 @@ class CompanyProfileDetailView(generic.DetailView):
     model = Company
     template_name = 'company/company_profile_detail.html'
     context_object_name = 'company'
+    slug_url_kwarg = 'company_slug'
 
 
 class CompanyProfileUpdateView(generic.UpdateView):
     model = Company
     template_name = 'company/company_profile_update.html'
     fields = ['logo', 'name', 'description', 'sector', 'size', 'website']
+    slug_url_kwarg = 'company_slug'
 
 
 class JobListView(generic.ListView):
     model = Job
     template_name = 'job/job_list.html'
     context_object_name = 'jobs_list'
+    slug_url_kwarg = 'company_slug'
 
     def get_queryset(self):
-        return Job.objects.filter(company=self.request.user.profile.company.id)
+        return Job.objects.filter(company=self.request.user.profile.company.id).order_by('start_date')
 
 
 class JobDetailView(generic.DetailView):
     model = Job
     template_name = 'job/job_detail.html'
     context_object_name = 'job'
+    slug_url_kwarg = 'company_slug'
 
     def get_queryset(self):
         return Job.objects.filter(company=self.request.user.profile.company.id)
@@ -124,7 +131,8 @@ class JobDetailView(generic.DetailView):
 class JobCreateView(generic.CreateView):
     model = Job
     template_name = 'job/job_create.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
+    fields = ['title', 'description', 'employment_grade', 'min_degree', 'start_date', 'applications_process']
+    slug_url_kwarg = 'company_slug'
 
     def form_valid(self, form):
         form.instance.company = self.request.user.profile.company
@@ -134,13 +142,15 @@ class JobCreateView(generic.CreateView):
 class JobUpdateView(generic.UpdateView):
     model = Job
     template_name = 'job/job_update.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'applications_process']
+    fields = ['title', 'description', 'employment_grade', 'min_degree', 'start_date', 'applications_process']
+    slug_url_kwarg = 'company_slug'
 
 
 class JobDeleteView(generic.DeleteView):
     model = Job
     template_name = 'job/job_delete.html'
     context_object_name = 'job'
+    slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
         return reverse_lazy('company-job-list', kwargs={'pk': self.request.user.profile.company.id})

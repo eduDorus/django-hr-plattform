@@ -27,17 +27,17 @@ class UserFormView(View):
 
         if form.is_valid():
 
-            user = form.save(commit=False)
+            user_object = form.save(commit=False)
 
             # Clean data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            user.first_name = form.cleaned_data['first_name'].title()
-            user.last_name = form.cleaned_data['last_name'].title()
-            user.email = form.cleaned_data['email'].lower()
-            user.set_password(password)
-            user.save()
+            user_object.first_name = form.cleaned_data['first_name'].title()
+            user_object.last_name = form.cleaned_data['last_name'].title()
+            user_object.email = form.cleaned_data['email'].lower()
+            user_object.set_password(password)
+            user_object.save()
 
             # Create user profile
             gender = form.cleaned_data['gender']
@@ -46,7 +46,7 @@ class UserFormView(View):
             profile = Profile()
             profile.gender = gender
             profile.birthday = birthday
-            profile.user = user
+            profile.user = user_object
             profile.save()
 
             # Authenticate user

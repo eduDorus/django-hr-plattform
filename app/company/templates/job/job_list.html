@@ -2,26 +2,27 @@
 
 {% block content %}
 
-    <a href="{% url 'company-job-create' request.user.profile.company.id %}" class="btn btn-primary btn-block">Create a
+    <a href="{% url 'company-job-create' user.profile.company.slug %}" class="btn btn-primary btn-block">Create a
         new Job offer</a>
     <br/>
 
     {% for job in jobs_list %}
 
         <div class="panel panel-default">
-            <a href="{% url 'company-job-detail' job.id %}">
-                <div class="panel-heading">
+
+            <div class="panel-heading">
+                <a href="{% url 'company-job-detail' user.profile.company.slug job.id %}">
                     <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
-                    <span class="label label-default">{{ job.created }}</span>
-                    <span class="label label-info">{{ job.employment_grade }}%</span>
-                    <span class="label label-warning">{{ job.min_degree }}</span>
-                </div>
-            </a>
+                </a>
+                <span class="label label-default">{{ job.start_date }}</span>
+                <span class="label label-info">{{ job.employment_grade }}%</span>
+                <span class="label label-warning">{{ job.min_degree }}</span>
+            </div>
             <div class="panel-body">
                 <p>{{ job.description }}</p>
 
-                <a href="{% url 'company-job-update' job.id %}" class="btn btn-warning">Update</a>
-                <a href="{% url 'company-job-delete' job.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'company-job-update' user.profile.company.slug job.id %}" class="btn btn-warning">Update</a>
+                <a href="{% url 'company-job-delete' user.profile.company.slug job.id %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
 

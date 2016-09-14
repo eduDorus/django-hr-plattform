@@ -1,23 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'form.html' %}
 
 {% load bootstrap3 %}
 
-{% block content %}
-<p>This registration is for job seekers, if you are a company please <a href="{% url 'company-registration' %}">sign up here</a></p>
-{% endblock %}
-
-{% block form %}
-
-    <form action="" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary btn-block">
-                {% bootstrap_icon "thumbs-up" %} Register
-            </button>
-        {% endbuttons %}
-    </form>
-
-    <p>Already have an account? <a href="{% url 'login' %}">Click here to login</a></p>
-
+{% block buttons %}
+    <button type="submit" class="btn btn-primary btn-block">
+        {% bootstrap_icon "thumbs-up" %} Register
+    </button>
 {% endblock %}
