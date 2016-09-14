@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block bottom_script %}{{ block.super }}
+    <script type="text/html" id="application-element-template">
+    <div id="application-element-__prefix__">
+        {% bootstrap_form formset.empty_form %}
+    </div>
+    </script>
+    <script>
+    $(function() {
+        $('.add-application-element').click(function(ev){
+            ev.preventDefault();
+            var count = parseInt($('#id_application-element_set-TOTAL_FORMS').attr('value'), 10);
+            var tmplMarkup = $('#application-element-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.application-elements').append(compiledTmpl);
+            $('#id_application-element_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <h2>Create Process</h2>
+    <form action="." method="post">
+
+        {{ formset.management_form }}
+        {% csrf_token %}
+
+        <legend>Application Process:</legend>
+        <div class="application-process">
+            {% bootstrap_form form %}
+        </div>
+
+        <legend>
+            <div class="pull-right"><a href="#" class="btn btn-inverse add-application-element"><i class="icon-plus icon-white"></i> Add Application Element</a></div>
+            Application Elements
+        </legend>
+
+         <div class="application-elements form-inline">
+            {% for form in formset %}
+                {% bootstrap_form form %}
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+            {% bootstrap_icon "thumbs-up" %} Save Process
+        </button>
+    </form>
+
+{% endblock %}
+

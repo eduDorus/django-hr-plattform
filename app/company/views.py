@@ -146,6 +146,57 @@ class JobDeleteView(generic.DeleteView):
         return reverse_lazy('company-job-list', kwargs={'pk': self.request.user.profile.company.id})
 
 
+class FormsetMixin(object):
+    object = None
+
+    def get(self, request, *args, **kwargs):
+        if getattr(self, 'is_update_view', False):
+            self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset_class = self.get_formset_class()
+        formset = self.get_formset(formset_class)
+        return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def post(self, request, *args, **kwargs):
+        if getattr(self, 'is_update_view', False):
+            self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset_class = self.get_formset_class()
+        formset = self.get_formset(formset_class)
+        if form.is_valid() and formset.is_valid():
+            return self.form_valid(form, formset)
+        else:
+            return self.form_invalid(form, formset)
+
+    def get_formset_class(self):
+        return self.formset_class
+
+    def get_formset(self, formset_class):
+        return formset_class(**self.get_formset_kwargs())
+
+    def get_formset_kwargs(self):
+        kwargs = {
+            'instance': self.object
+        }
+        if self.request.method in ('POST', 'PUT'):
+            kwargs.update({
+                'data': self.request.POST,
+                'files': self.request.FILES,
+            })
+        return kwargs
+
+    def form_valid(self, form, formset):
+        self.object = form.save()
+        formset.instance = self.object
+        formset.save()
+        return redirect(self.object.get_absolute_url())
+
+    def form_invalid(self, form, formset):
+        return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+
 class ApplicationProcessView(generic.ListView):
     model = ApplicationProcess
     template_name = 'application_process/application_process_list.html'
@@ -155,45 +206,26 @@ class ApplicationProcessView(generic.ListView):
         return ApplicationProcess.objects.filter(company=self.request.user.profile.company.id)
 
 
-class ApplicationProcessCreateView(generic.CreateView):
+class ApplicationProcessCreateView(FormsetMixin, generic.CreateView):
     form_class = ApplicationProcessForm
+    formset_class = ApplicationElementFormSet
     model = ApplicationProcess
-    template_name = 'application_process/application_process_create.html'
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        application_element_form = ApplicationElementFormSet()
-        return self.render_to_response(self.get_context_data(form=form, application_element_form=application_element_form))
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        application_element_form = ApplicationElementFormSet(self.request.POST)
-        if (form.is_valid() and application_element_form.is_valid()):
-            return self.form_valid(form, application_element_form)
-        else:
-            return self.form_invalid(form, application_element_form)
-
-    def form_valid(self, form, application_element_form):
-        self.object = form.save()
-        application_element_form.instance = self.object
-        application_element_form.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, application_element_form):
-        return self.render_to_response(self.get_context_data(form=form, application_element_form=application_element_form,))
+    template_name = 'application_process/application_process_form.html'
 
     def get_success_url(self):
         return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
 
 
 class ApplicationProcessUpdateView(generic.UpdateView):
+    form_class = ApplicationProcessForm
+    formset_class = ApplicationElementFormSet
     model = ApplicationProcess
-    template_name = 'application_process/application_process_update.html'
-    fields = ['title']
+    is_update_view = True
+    template_name = 'application_process/application_process_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('company-application-process-list', kwargs={'pk': self.request.user.profile.company.id})
+
 
 
 class ApplicationProcessDeleteView(generic.DeleteView):

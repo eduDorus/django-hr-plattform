@@ -29,9 +29,9 @@ class ApplicationProcessForm(forms.ModelForm):
         fields = ['title']
 
 
-# class ApplicationElementForm(forms.ModelForm):
-#     class Meta:
-#         model = ApplicationElement
-#         fields = ['title']
+class ApplicationElementForm(forms.ModelForm):
+    class Meta:
+        model = ApplicationElement
+        fields = ['title']
 
-ApplicationElementFormSet = inlineformset_factory(ApplicationProcess, ApplicationElement, fields=('title',))
+ApplicationElementFormSet = inlineformset_factory(ApplicationProcess, ApplicationElement, extra=0, min_num=1, max_num=10, fields=('title',))
