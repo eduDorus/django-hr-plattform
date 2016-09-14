@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 
 from user.models import Profile
 
-from .forms import CompanyUserForm, ApplicationProcessForm, ApplicationElementFormSet
+from .forms import CompanyUserForm, ApplicationProcessForm, ApplicationElementFormSet, JobModelForm
 from .models import Company, Job, ApplicationElement, ApplicationProcess
 
 
@@ -130,13 +130,18 @@ class JobDetailView(generic.DetailView):
 
 class JobCreateView(generic.CreateView):
     model = Job
+    form_class = JobModelForm
     template_name = 'job/job_create.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'start_date', 'applications_process']
     slug_url_kwarg = 'company_slug'
 
     def form_valid(self, form):
         form.instance.company = self.request.user.profile.company
         return super(JobCreateView, self).form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(JobCreateView, self).get_form_kwargs()
+        kwargs.update({'company': self.request.user.profile.company})
+        return kwargs
 
 
 class JobUpdateView(generic.UpdateView):
@@ -153,7 +158,7 @@ class JobDeleteView(generic.DeleteView):
     slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-job-list', kwargs={'slug': self.request.user.profile.company.slug})
+        return reverse_lazy('company-job-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
 class FormsetMixin(object):

@@ -125,7 +125,7 @@ class Job(models.Model):
     created = models.DateField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('company-job-detail', kwargs={'pk': self.pk})
+        return reverse('company-job-detail', kwargs={'company_slug': self.company.slug, 'pk': self.pk})
 
     def __str__(self):
         return "%s: %s" % (self.company.name, self.title)
