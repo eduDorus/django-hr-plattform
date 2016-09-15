@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'user',
     'company',
     'account',
+    'application',
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -64,27 +64,6 @@ class Education(models.Model):
         return self.degree
 
 
-class ApplicationProcess(models.Model):
-    title = models.CharField(max_length=100)
-    company = models.ForeignKey(Company)
-
-    def __str__(self):
-        return "%s: %s" % (self.company.name, self.title)
-
-
-class ApplicationElement(models.Model):
-    application_process = models.ForeignKey(ApplicationProcess, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    queue = models.ManyToManyField(User, blank=True)
-    next = models.ForeignKey('ApplicationElement', related_name='next_field', related_query_name='next_field',
-                             blank=True, null=True)
-    previous = models.ForeignKey('ApplicationElement', related_name='previous_field',
-                                 related_query_name='previous_field', blank=True, null=True)
-
-    def __str__(self):
-        return "%s: %s" % (self.application_process.company.name, self.title)
-
-
 class Job(models.Model):
     TEN_PERCENT = 10
     TWENTY_PERCENT = 20

@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from user.models import Profile
 
 from .forms import CompanyUserForm, ApplicationProcessForm, ApplicationElementFormSet, JobModelForm
-from .models import Company, Job, ApplicationElement, ApplicationProcess
+from .models import Company, Job
 
 
 # Create your views here.
