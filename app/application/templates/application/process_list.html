@@ -5,28 +5,28 @@
     <h1 class="page-header">Application Processes</h1>
 
     <div class="row">
-        {% if application_process_list %}
-            {% for application_process in application_process_list %}
+        {% if process_list %}
+            {% for process in process_list %}
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3>
-                                <a class="application_process-panel user-panel-title"
-                                   href="#{#{% url 'company-application-process-detail' request.user.profile.company.id application_process.id %}#}">{{ application_process.title }}</a>
+                                <a class="process-panel user-panel-title"
+                                   href="#">{{ process.name }}</a>
                             </h3>
                         </div>
                         <div class="panel-body">
                             <table class="table table-no-border">
-                                {% for application_element in application_process.applicationelement_set.all %}
+                                {% for queue in process.queue_set.all %}
                                     <tr>
-                                        <td>{{ forloop.counter }}  -  {{ application_element.title }}</td>
+                                        <td>{{ forloop.counter }}  -  {{ queue.name }}</td>
                                     </tr>
                                 {% endfor %}
                             </table>
-                            <a href="{% url 'company-application-process-update' request.user.profile.company.slug application_process.id %}">
+                            <a href="{% url 'application-process-update' request.user.profile.company.slug application_process.id %}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
-                            <a href="{% url 'company-application-process-delete' request.user.profile.company.slug application_process.id %}">
+                            <a href="{% url 'application-process-delete' request.user.profile.company.slug application_process.id %}">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
                         </div>
@@ -39,7 +39,7 @@
 
     </div>
 
-    <a href="{% url 'company-application-process-create' request.user.profile.company.slug %}" class="btn btn-link btn-block">
+    <a href="{% url 'application-process-create' request.user.profile.company.slug %}" class="btn btn-link btn-block">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create a new Application Process
     </a>
 

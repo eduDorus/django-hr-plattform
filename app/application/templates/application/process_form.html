@@ -3,22 +3,22 @@
 {% load bootstrap3 %}
 
 {% block bottom_script %}{{ block.super }}
-    <script type="text/html" id="application-element-template">
-    <div id="application-element-__prefix__">
+    <script type="text/html" id="queue-template">
+    <div id="queue-__prefix__">
         {% bootstrap_form formset.empty_form %}
     </div>
     </script>
     <script>
     $(function() {
-        $('.add-application-element').click(function(ev){
+        $('.add-queue').click(function(ev){
             ev.preventDefault();
-            var count = parseInt($('#id_applicationelement_set-TOTAL_FORMS').attr('value'), 10);
+            var count = parseInt($('#id_queue_set-TOTAL_FORMS').attr('value'), 10);
             console.log(count);
-            var tmplMarkup = $('#application-element-template').html();
+            var tmplMarkup = $('#queue-template').html();
             var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
             console.log(compiledTmpl);
-            $('div.application-elements').append(compiledTmpl);
-            $('#id_applicationelement_set-TOTAL_FORMS').attr('value', count + 1);
+            $('div.queues').append(compiledTmpl);
+            $('#id_queue_set-TOTAL_FORMS').attr('value', count + 1);
         });
     });
     </script>
@@ -27,22 +27,22 @@
 {% block content %}
 
     <h2>Create Process</h2>
-    <form action="../../../company/templates/application_process" method="post">
+    <form action="." method="post">
 
         {{ formset.management_form }}
         {% csrf_token %}
 
         <legend>Application Process:</legend>
-        <div class="application-process">
+        <div class="process">
             {% bootstrap_form form %}
         </div>
 
         <legend>
-            <div class="pull-right"><a href="#" class="btn btn-inverse add-application-element"><i class="icon-plus icon-white"></i> Add Application Element</a></div>
+            <div class="pull-right"><a href="#" class="btn btn-inverse add-queue"><i class="icon-plus icon-white"></i> Add Application Element</a></div>
             Application Elements
         </legend>
 
-         <div class="application-elements form-inline">
+         <div class="queues form-inline">
             {% for form in formset %}
                 {{ form.id }}
                 {% bootstrap_form form %}

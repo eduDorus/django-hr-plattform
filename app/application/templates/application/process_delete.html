@@ -1,26 +1,27 @@
 {% extends 'base.html' %}
 
 {% block back_button %}
-    <a href="{% url 'company-application-process-list' request.user.profile.company.slug %}" class="btn btn-default pull-left btn-back">
+    <a href="{% url 'application-process-list' request.user.profile.company.slug %}" class="btn btn-default pull-left btn-back">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Application Processes
     </a>
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">{% csrf_token %}
-        <h1 class="page-header">Delete {{ application_process.title }}?</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h1 class="page-header">Delete {{ process.name }}?</h1>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>
                     <a class="application_process-panel user-panel-title"
-                       href="#">{{ application_process.title }}</a>
+                       href="#">{{ process.name }}</a>
                 </h3>
             </div>
             <div class="panel-body">
                 <table class="table table-no-border">
-                    {% for application_element in application_process.applicationelement_set.all %}
+                    {% for queue in process.queue_set.all %}
                         <tr>
-                            <td>{{ forloop.counter }}  -  {{ application_element.title }}</td>
+                            <td>{{ forloop.counter }}  -  {{ queue.name }}</td>
                         </tr>
                     {% endfor %}
                 </table>
