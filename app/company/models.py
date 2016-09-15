@@ -99,7 +99,7 @@ class Job(models.Model):
 
     min_degree = models.ForeignKey(Education, on_delete=None)
 
-    applications_process = models.ForeignKey(ApplicationProcess, on_delete=None)
+    applications_process = models.ForeignKey('application.Process', on_delete=None)
 
     created = models.DateField(default=timezone.now)
 

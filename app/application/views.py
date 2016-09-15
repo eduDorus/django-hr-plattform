@@ -63,8 +63,8 @@ class FormsetMixin(object):
 
 class ProcessView(generic.ListView):
     model = Process
-    template_name = 'application_process/application_process_list.html'
-    context_object_name = 'application_process_list'
+    template_name = 'application/process_list.html'
+    context_object_name = 'process_list'
     slug_url_kwarg = 'company_slug'
 
     def get_queryset(self):
@@ -75,11 +75,11 @@ class ApplicationProcessCreateView(FormsetMixin, generic.CreateView):
     form_class = ProcessForm
     formset_class = QueueFormSet
     model = Process
-    template_name = 'application_process/application_process_form.html'
+    template_name = 'application/process_form.html'
     slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
+        return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
 class ApplicationProcessUpdateView(FormsetMixin, generic.UpdateView):
@@ -87,18 +87,18 @@ class ApplicationProcessUpdateView(FormsetMixin, generic.UpdateView):
     formset_class = QueueFormSet
     model = Process
     is_update_view = True
-    template_name = 'application_process/application_process_form.html'
+    template_name = 'application/process_form.html'
     slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
+        return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
 class ApplicationProcessDeleteView(generic.DeleteView):
     model = Process
-    template_name = 'application_process/application_process_delete.html'
-    context_object_name = 'application_process'
+    template_name = 'application/process_delete.html'
+    context_object_name = 'process'
     slug_url_kwarg = 'company_slug'
 
     def get_success_url(self):
-        return reverse_lazy('company-application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
+        return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
