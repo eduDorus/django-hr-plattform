@@ -1,20 +1,20 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
-from .views import UserFormView, ProfileView, ProfileEdit, JobListView, apply_for_job, JobDetailView, CVView, \
-    EducationCreate, EducationUpdate, EducationDelete, ExperienceCreate, ExperienceUpdate, ExperienceDelete, SkillList, \
-    SkillCreate, SkillUpdate, SkillDelete, LanguageList, LanguageCreate, LanguageUpdate, LanguageDelete
+from .views import UserFormView, ProfileDetailView, ProfileUpdateView, JobListView, apply_for_job, JobDetailView, CVView, \
+    EducationCreateView, EducationUpdateView, EducationDeleteView, ExperienceCreateView, ExperienceUpdateView, ExperienceDeleteView, SkillListView, \
+    SkillCreateView, SkillUpdateView, SkillDeleteView, LanguageListView, LanguageCreateView, LanguageUpdateView, LanguageDeleteView
 
 urlpatterns = [
     # User Teaser View
     url(r'^$', TemplateView.as_view(template_name='user/home.html'), name='user-home'),
 
     # User Registration
-    url(r'^registration/$', UserFormView.as_view(), name='registration'),
+    url(r'^registration/$', UserFormView.as_view(), name='user-registration'),
 
     # User Profile
-    url(r'^(?P<username>[\w-]+)/profile/$', ProfileView.as_view(), name='user-profile'),
-    url(r'^(?P<username>[\w-]+)/profile/edit/$', ProfileEdit.as_view(), name='user-profile-edit'),
+    url(r'^(?P<username>[\w-]+)/profile/$', ProfileDetailView.as_view(), name='user-profile'),
+    url(r'^(?P<username>[\w-]+)/profile/edit/$', ProfileUpdateView.as_view(), name='user-profile-edit'),
 
     url(r'^job-search/$', JobListView.as_view(), name='user-job-list'),
     url(r'^job/(?P<pk>[0-9]+)/detail/$', JobDetailView.as_view(), name='user-job-detail'),
@@ -24,30 +24,30 @@ urlpatterns = [
     url(r'^(?P<username>[\w-]+)/cv/$', CVView.as_view(), name='user-cv-index'),
 
     # CV Education
-    url(r'^(?P<username>[\w-]+)/cv/education/add/$', EducationCreate.as_view(), name='user-education-add'),
-    url(r'^(?P<username>[\w-]+)/cv/education/(?P<pk>[0-9]+)/edit/$', EducationUpdate.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/education/add/$', EducationCreateView.as_view(), name='user-education-add'),
+    url(r'^(?P<username>[\w-]+)/cv/education/(?P<pk>[0-9]+)/edit/$', EducationUpdateView.as_view(),
         name='user-education-update'),
-    url(r'^(?P<username>[\w-]+)/cv/education/(?P<pk>[0-9]+)/delete/$', EducationDelete.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/education/(?P<pk>[0-9]+)/delete/$', EducationDeleteView.as_view(),
         name='user-education-delete'),
 
     # CV Experience
-    url(r'^(?P<username>[\w-]+)/cv/experience/add/$', ExperienceCreate.as_view(), name='user-experience-add'),
-    url(r'^(?P<username>[\w-]+)/cv/experience/(?P<pk>[0-9]+)/edit/$', ExperienceUpdate.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/experience/add/$', ExperienceCreateView.as_view(), name='user-experience-add'),
+    url(r'^(?P<username>[\w-]+)/cv/experience/(?P<pk>[0-9]+)/edit/$', ExperienceUpdateView.as_view(),
         name='user-experience-update'),
-    url(r'^(?P<username>[\w-]+)/cv/experience/(?P<pk>[0-9]+)/delete/$', ExperienceDelete.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/experience/(?P<pk>[0-9]+)/delete/$', ExperienceDeleteView.as_view(),
         name='user-experience-delete'),
 
     # CV Skills
-    url(r'^(?P<username>[\w-]+)/cv/skill/$', SkillList.as_view(), name='user-skill-list'),
-    url(r'^(?P<username>[\w-]+)/cv/skill/add/$', SkillCreate.as_view(), name='user-skill-add'),
-    url(r'^(?P<username>[\w-]+)/cv/skill/(?P<pk>[0-9]+)/edit/$', SkillUpdate.as_view(), name='user-skill-update'),
-    url(r'^(?P<username>[\w-]+)/cv/skill/(?P<pk>[0-9]+)/delete/$', SkillDelete.as_view(), name='user-skill-delete'),
+    url(r'^(?P<username>[\w-]+)/cv/skill/$', SkillListView.as_view(), name='user-skill-list'),
+    url(r'^(?P<username>[\w-]+)/cv/skill/add/$', SkillCreateView.as_view(), name='user-skill-add'),
+    url(r'^(?P<username>[\w-]+)/cv/skill/(?P<pk>[0-9]+)/edit/$', SkillUpdateView.as_view(), name='user-skill-update'),
+    url(r'^(?P<username>[\w-]+)/cv/skill/(?P<pk>[0-9]+)/delete/$', SkillDeleteView.as_view(), name='user-skill-delete'),
 
     # CV Language
-    url(r'^(?P<username>[\w-]+)/cv/language/$', LanguageList.as_view(), name='user-language-list'),
-    url(r'^(?P<username>[\w-]+)/cv/language/add/$', LanguageCreate.as_view(), name='user-language-add'),
-    url(r'^(?P<username>[\w-]+)/cv/language/(?P<pk>[0-9]+)/edit/$', LanguageUpdate.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/language/$', LanguageListView.as_view(), name='user-language-list'),
+    url(r'^(?P<username>[\w-]+)/cv/language/add/$', LanguageCreateView.as_view(), name='user-language-add'),
+    url(r'^(?P<username>[\w-]+)/cv/language/(?P<pk>[0-9]+)/edit/$', LanguageUpdateView.as_view(),
         name='user-language-update'),
-    url(r'^(?P<username>[\w-]+)/cv/language/(?P<pk>[0-9]+)/delete/$', LanguageDelete.as_view(),
+    url(r'^(?P<username>[\w-]+)/cv/language/(?P<pk>[0-9]+)/delete/$', LanguageDeleteView.as_view(),
         name='user-language-delete'),
 ]

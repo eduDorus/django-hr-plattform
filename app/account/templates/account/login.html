@@ -1,20 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'form.html' %}
 
 {% load bootstrap3 %}
 
-{% block content %}
-    <form action="" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "log-in" %} Login
-            </button>
-            <a href="{% url 'password_reset' %}">Forgot password? No problem</a>
-        {% endbuttons %}
-    </form>
-
-    <p>No account yet? <a href="{% url 'registration' %}">Click here to sign up</a></p>
-
-
+{% block buttons %}
+    <button type="submit" class="btn btn-primary btn-block">
+        {% bootstrap_icon "thumbs-up" %} Register
+    </button>
+    <a href="{% url 'password_reset' %}">Forgot password? No problem</a>
+    <p>No account yet? <a href="{% url 'user-registration' %}">Click here to sign up</a></p>
 {% endblock %}

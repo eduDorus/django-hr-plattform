@@ -1,22 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'form.html' %}
 
 {% load bootstrap3 %}
 
-{% block back_button %}
-    <a href="{% url 'user-cv-index' %}" class="btn btn-default pull-left btn-back">
-        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to CV
-    </a>
-{% endblock %}
-
-{% block content %}
-    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <div class="form-group">
-            <button href="{% url 'user-cv-index' user.username %}" type="submit" class="btn btn-success btn-block">
-                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
-            </button>
-        </div>
-    </form>
-
+{% block buttons %}
+    <button type="submit" class="btn btn-primary btn-block">
+        {% bootstrap_icon "floppy-disk" %} Save
+    </button>
 {% endblock %}

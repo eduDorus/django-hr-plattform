@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-inverse navbar-static-top">
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
 
         <div class="navbar-header">
@@ -21,7 +21,9 @@
 
                     {% if user.profile.is_company_user %}
 
-                        <li><a href="{% url 'company-job-list' request.user.profile.company.slug %}">Job offers</a></li>
+                        <li class="{% if request.resolver_match.url_name == 'company-job-list' %}active{% endif %}">
+                            <a href="{% url 'company-job-list' request.user.profile.company.slug %}">Job offers</a>
+                        </li>
 
                         <li><a href="#">Applications</a></li>
 
@@ -29,7 +31,9 @@
 
                     {% else %}
 
-                        <li><a href="{% url 'user-job-list' %}">Search Jobs</a></li>
+                        <li class="{% if request.resolver_match.url_name == 'user-job-list' %}active{% endif %}">
+                            <a href="{% url 'user-job-list' %}">Search Jobs</a>
+                        </li>
 
                         <li><a href="#">Applications</a></li>
 
@@ -64,10 +68,10 @@
 
                     {% if user.profile.is_company_user %}
 
-                        <li>
+                        <li class="{% if request.resolver_match.url_name == 'company-profile' %}active{% endif %}">
                             <a href="{% url 'company-profile' request.user.profile.company.slug %}">Company Profile</a>
                         </li>
-                        <li>
+                        <li class="{% if request.resolver_match.url_name == 'application-process-list' %}active{% endif %}">
                             <a href="{% url 'application-process-list' request.user.profile.company.slug %}">Application Processes</a>
                         </li>
 
@@ -94,9 +98,18 @@
 
                 {% else %}
 
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
 
-                    <li><a href="{% url 'registration' %}">Register</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Register <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'user-registration' %}">Register to find jobs</a></li>
+                            <li><a href="{% url 'company-registration' %}">Register as an company</a></li>
+                        </ul>
+                    </li>
 
                 {% endif %}
 

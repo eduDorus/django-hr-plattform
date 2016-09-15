@@ -63,9 +63,9 @@ class UserFormView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class ProfileView(generic.DetailView):
+class ProfileDetailView(generic.DetailView):
     model = Profile
-    template_name = 'user/profile.html'
+    template_name = 'user/profile_detail.html'
     context_object_name = 'profile'
     slug_url_kwarg = 'username'
 
@@ -74,9 +74,9 @@ class ProfileView(generic.DetailView):
         return Profile.objects.get(user=user)
 
 
-class ProfileEdit(generic.UpdateView):
+class ProfileUpdateView(generic.UpdateView):
     model = Profile
-    template_name = 'user/form.html'
+    template_name = 'user/profile_update.html'
     fields = ['avatar', 'gender', 'birthday', 'company']
     slug_url_kwarg = 'username'
 
@@ -120,17 +120,17 @@ class CVView(generic.TemplateView):
         return context
 
 
-class EducationCreate(generic.CreateView):
+class EducationCreateView(generic.CreateView):
     model = Education
     template_name = 'cv/cv_form.html'
     fields = ['title', 'academic_level', 'specialization', 'school_name', 'graduate_year']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(EducationCreate, self).form_valid(form)
+        return super(EducationCreateView, self).form_valid(form)
 
 
-class EducationUpdate(generic.UpdateView):
+class EducationUpdateView(generic.UpdateView):
     model = Education
     template_name = 'cv/cv_form.html'
     fields = ['title', 'academic_level', 'specialization', 'school_name', 'graduate_year']
@@ -138,10 +138,10 @@ class EducationUpdate(generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(EducationUpdate, self).dispatch(request, *args, **kwargs)
+        return super(EducationUpdateView, self).dispatch(request, *args, **kwargs)
 
 
-class EducationDelete(generic.DeleteView):
+class EducationDeleteView(generic.DeleteView):
     model = Education
     template_name = 'cv/education_confirm_delete.html'
 
@@ -151,20 +151,20 @@ class EducationDelete(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(EducationDelete, self).dispatch(request, *args, **kwargs)
+        return super(EducationDeleteView, self).dispatch(request, *args, **kwargs)
 
 
-class ExperienceCreate(generic.CreateView):
+class ExperienceCreateView(generic.CreateView):
     model = Experience
     template_name = 'cv/cv_form.html'
     fields = ['title', 'position', 'employment_type', 'employer', 'start_date', 'end_date', 'description']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(ExperienceCreate, self).form_valid(form)
+        return super(ExperienceCreateView, self).form_valid(form)
 
 
-class ExperienceUpdate(generic.UpdateView):
+class ExperienceUpdateView(generic.UpdateView):
     model = Experience
     template_name = 'cv/cv_form.html'
     fields = ['title', 'position', 'employment_type', 'employer', 'start_date', 'end_date', 'description']
@@ -172,10 +172,10 @@ class ExperienceUpdate(generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(ExperienceUpdate, self).dispatch(request, *args, **kwargs)
+        return super(ExperienceUpdateView, self).dispatch(request, *args, **kwargs)
 
 
-class ExperienceDelete(generic.DeleteView):
+class ExperienceDeleteView(generic.DeleteView):
     model = Experience
     template_name = 'cv/experience_confirm_delete.html'
 
@@ -185,25 +185,25 @@ class ExperienceDelete(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(ExperienceDelete, self).dispatch(request, *args, **kwargs)
+        return super(ExperienceDeleteView, self).dispatch(request, *args, **kwargs)
 
 
-class SkillList(generic.ListView):
+class SkillListView(generic.ListView):
     model = Skill
     context_object_name = 'user-skill_list'
 
 
-class SkillCreate(generic.CreateView):
+class SkillCreateView(generic.CreateView):
     model = Skill
     template_name = 'cv/cv_form.html'
     fields = ['name', 'level']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(SkillCreate, self).form_valid(form)
+        return super(SkillCreateView, self).form_valid(form)
 
 
-class SkillUpdate(generic.UpdateView):
+class SkillUpdateView(generic.UpdateView):
     model = Skill
     template_name = 'cv/cv_form.html'
     fields = ['name', 'level']
@@ -211,10 +211,10 @@ class SkillUpdate(generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(SkillUpdate, self).dispatch(request, *args, **kwargs)
+        return super(SkillUpdateView, self).dispatch(request, *args, **kwargs)
 
 
-class SkillDelete(generic.DeleteView):
+class SkillDeleteView(generic.DeleteView):
     model = Skill
     template_name = 'cv/skill_confirm_delete.html'
 
@@ -224,25 +224,25 @@ class SkillDelete(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(SkillDelete, self).dispatch(request, *args, **kwargs)
+        return super(SkillDeleteView, self).dispatch(request, *args, **kwargs)
 
 
-class LanguageList(generic.ListView):
+class LanguageListView(generic.ListView):
     model = Language
     context_object_name = 'user-language_list'
 
 
-class LanguageCreate(generic.CreateView):
+class LanguageCreateView(generic.CreateView):
     model = Language
     template_name = 'cv/cv_form.html'
     fields = ['language', 'level']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(LanguageCreate, self).form_valid(form)
+        return super(LanguageCreateView, self).form_valid(form)
 
 
-class LanguageUpdate(generic.UpdateView):
+class LanguageUpdateView(generic.UpdateView):
     model = Language
     template_name = 'cv/cv_form.html'
     fields = ['language', 'level']
@@ -250,10 +250,10 @@ class LanguageUpdate(generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(LanguageUpdate, self).dispatch(request, *args, **kwargs)
+        return super(LanguageUpdateView, self).dispatch(request, *args, **kwargs)
 
 
-class LanguageDelete(generic.DeleteView):
+class LanguageDeleteView(generic.DeleteView):
     model = Language
     template_name = 'cv/language_confirm_delete.html'
 
@@ -263,4 +263,4 @@ class LanguageDelete(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().user == request.user:
             return HttpResponseForbidden()
-        return super(LanguageDelete, self).dispatch(request, *args, **kwargs)
+        return super(LanguageDeleteView, self).dispatch(request, *args, **kwargs)

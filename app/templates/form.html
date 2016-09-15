@@ -4,16 +4,18 @@
 
 {% block content %}
 
-    <form action="" method="post" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
+    <div class="container-form">
+        <form action="" method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
 
-        {% block form %}
-        {% endblock %}
+            {% block form %}
+            {% endblock %}
 
-        {% buttons %}
-            {% block buttons %}{% endblock %}
-        {% endbuttons %}
-    </form>
+            {% buttons %}
+                {% block buttons %}{% endblock %}
+            {% endbuttons %}
+        </form>
+    </div>
 
 {% endblock %}

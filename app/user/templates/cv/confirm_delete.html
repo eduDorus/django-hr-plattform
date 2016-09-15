@@ -1,11 +1,5 @@
 {% extends 'base.html' %}
 
-{% block back_button %}
-    <a href="{% url 'user-cv-index' %}" class="btn btn-default pull-left btn-back">
-        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to CV
-    </a>
-{% endblock %}
-
 {% block content %}
     <form action="" method="post">{% csrf_token %}
         
