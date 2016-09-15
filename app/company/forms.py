@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Job
 
+from application.models import Process
 
 class CompanyUserForm(forms.ModelForm):
     GENDER = (
@@ -31,4 +32,4 @@ class JobModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         company = kwargs.pop('company')
         super(JobModelForm, self).__init__(*args, **kwargs)
-        self.fields['applications_process'].queryset = ApplicationProcess.objects.filter(company=company)
+        self.fields['applications_process'].queryset = Process.objects.filter(company=company)

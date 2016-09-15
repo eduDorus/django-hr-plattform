@@ -5,6 +5,7 @@ from django.views import generic
 from django.views.generic import View
 
 from user.models import Profile
+from application.models import Process, Queue
 
 from .forms import CompanyUserForm, JobModelForm
 from .models import Company, Job
@@ -24,14 +25,14 @@ def create_company(company_name, user_object):
         company.save()
 
         # Create default application process
-        application_process = ApplicationProcess(title='default', company=company)
+        application_process = Process(name='default', company=company)
         application_process.save()
 
         # Create default application elements
-        ApplicationElement(title='Application Inbox', application_process=application_process).save()
-        ApplicationElement(title='Telefon Screening', application_process=application_process).save()
-        ApplicationElement(title='Interview', application_process=application_process).save()
-        ApplicationElement(title='Sign Contract', application_process=application_process).save()
+        Queue(name='Application Inbox', position=1, description='default', process=application_process).save()
+        Queue(name='Telefon Screening', position=2, description='default', process=application_process).save()
+        Queue(name='Interview', position=3, description='default', process=application_process).save()
+        Queue(name='Sign Contract', position=4, description='default', process=application_process).save()
 
         company.applicationprocess_set.add(application_process)
 
@@ -135,9 +136,6 @@ class JobCreateView(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.company = self.request.user.profile.company
-        app_pro_obj = ApplicationProcess.objects.get(id=form.instance.application_process.id)
-        app_pro_obj.pk = None
-        app_pro_obj.save()
         return super(JobCreateView, self).form_valid(form)
 
     def get_form_kwargs(self):

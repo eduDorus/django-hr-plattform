@@ -20,13 +20,14 @@
                                 {% for queue in process.queue_set.all %}
                                     <tr>
                                         <td>{{ forloop.counter }}  -  {{ queue.name }}</td>
+                                        <td>{{ queue.description }}</td>
                                     </tr>
                                 {% endfor %}
                             </table>
-                            <a href="{% url 'application-process-update' request.user.profile.company.slug application_process.id %}">
+                            <a href="{% url 'application-process-update' request.user.profile.company.slug process.id %}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
-                            <a href="{% url 'application-process-delete' request.user.profile.company.slug application_process.id %}">
+                            <a href="{% url 'application-process-delete' request.user.profile.company.slug process.id %}">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
                         </div>

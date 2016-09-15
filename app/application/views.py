@@ -1,9 +1,10 @@
 from company.models import Company
+from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import generic
 
-from .forms import ProcessForm, QueueForm
+from .forms import ProcessForm, QueueFormSet
 from .models import Process
 
 
@@ -75,7 +76,7 @@ class ProcessView(generic.ListView):
 
 class ProcessCreateView(FormsetMixin, generic.CreateView):
     form_class = ProcessForm
-    formset_class = QueueForm
+    formset_class = QueueFormSet
     model = Process
     template_name = 'application/process_form.html'
     slug_url_kwarg = 'company_slug'
@@ -86,7 +87,7 @@ class ProcessCreateView(FormsetMixin, generic.CreateView):
 
 class ProcessUpdateView(FormsetMixin, generic.UpdateView):
     form_class = ProcessForm
-    formset_class = QueueForm
+    formset_class = QueueFormSet
     model = Process
     is_update_view = True
     template_name = 'application/process_form.html'

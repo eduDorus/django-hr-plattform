@@ -22,6 +22,7 @@
                     {% for queue in process.queue_set.all %}
                         <tr>
                             <td>{{ forloop.counter }}  -  {{ queue.name }}</td>
+                            <td>{{ queue.description }}</td>
                         </tr>
                     {% endfor %}
                 </table>

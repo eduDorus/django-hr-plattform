@@ -7,7 +7,7 @@ class Process(models.Model):
     company = models.ForeignKey('company.Company')
 
     def __str__(self):
-        return "%s: %s" % (self.company.name, self.title)
+        return "%s: %s" % (self.company.name, self.name)
 
 
 class Queue(models.Model):
@@ -18,7 +18,7 @@ class Queue(models.Model):
     process = models.ForeignKey(Process, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "%s: %s" % (self.process.company.name, self.title)
+        return "%s: %s" % (self.process.company.name, self.name)
 
 
 class Application(models.Model):
