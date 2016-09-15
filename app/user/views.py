@@ -99,9 +99,9 @@ class JobDetailView(generic.DetailView):
 
 def apply_for_job(request, pk):
     if request.method == 'POST':
-        job = Job.objects.get(pk=pk)
-        if not job.applications.filter(pk=request.user.id).exists():
-            job.applications.add(request.user)
+        job = Job.objects.get(id=pk)
+        if not job.applications_process.applicationelement_set.queue.filter(pk=request.user.id).exists():
+            job.applications_process.applicationelement_set.queue.add(request.user)
         return HttpResponseRedirect(reverse_lazy('user-job-list'))
     else:
         return HttpResponse(request)

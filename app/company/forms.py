@@ -1,7 +1,6 @@
 from django import forms
-from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from .models import ApplicationProcess, ApplicationElement, Job
+from .models import Job
 
 
 class CompanyUserForm(forms.ModelForm):
@@ -29,22 +28,7 @@ class JobModelForm(forms.ModelForm):
         model = Job
         exclude = ['created', 'company']
 
-
     def __init__(self, *args, **kwargs):
         company = kwargs.pop('company')
         super(JobModelForm, self).__init__(*args, **kwargs)
         self.fields['applications_process'].queryset = ApplicationProcess.objects.filter(company=company)
-
-
-class ApplicationProcessForm(forms.ModelForm):
-    class Meta:
-        model = ApplicationProcess
-        fields = ['title']
-
-
-class ApplicationElementForm(forms.ModelForm):
-    class Meta:
-        model = ApplicationElement
-        fields = ['title']
-
-ApplicationElementFormSet = inlineformset_factory(ApplicationProcess, ApplicationElement, extra=0, min_num=1, max_num=10, fields=('title',))
