@@ -1,9 +1,9 @@
 from company.models import Company
-from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.views import generic
 
-from .forms import ProcessForm
+from .forms import ProcessForm, QueueForm
 from .models import Process
 
 
@@ -73,9 +73,9 @@ class ProcessView(generic.ListView):
         return Process.objects.filter(company=self.request.user.profile.company.id)
 
 
-class ApplicationProcessCreateView(FormsetMixin, generic.CreateView):
+class ProcessCreateView(FormsetMixin, generic.CreateView):
     form_class = ProcessForm
-    formset_class = QueueFormSet
+    formset_class = QueueForm
     model = Process
     template_name = 'application/process_form.html'
     slug_url_kwarg = 'company_slug'
@@ -84,9 +84,9 @@ class ApplicationProcessCreateView(FormsetMixin, generic.CreateView):
         return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
-class ApplicationProcessUpdateView(FormsetMixin, generic.UpdateView):
+class ProcessUpdateView(FormsetMixin, generic.UpdateView):
     form_class = ProcessForm
-    formset_class = QueueFormSet
+    formset_class = QueueForm
     model = Process
     is_update_view = True
     template_name = 'application/process_form.html'
@@ -96,7 +96,7 @@ class ApplicationProcessUpdateView(FormsetMixin, generic.UpdateView):
         return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
-class ApplicationProcessDeleteView(generic.DeleteView):
+class ProcessDeleteView(generic.DeleteView):
     model = Process
     template_name = 'application/process_delete.html'
     context_object_name = 'process'
