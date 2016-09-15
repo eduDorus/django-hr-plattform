@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import ProcessView, ProcessCreateView, ProcessUpdateView, ProcessDeleteView
+from .views import ProcessView, ProcessCreateView, ProcessUpdateView, ProcessDeleteView, ApplicationListView, ApplicationDetailView
 
 urlpatterns = [
 
@@ -12,5 +12,10 @@ urlpatterns = [
         name='application-process-update'),
     url(r'^(?P<company_slug>[\w-]+)/process/delete/(?P<pk>[0-9]+)/$', ProcessDeleteView.as_view(),
         name='application-process-delete'),
+
+    url(r'^(?P<company_slug>[\w-]+)/$', ApplicationListView.as_view(),
+        name='application-application-list'),
+    url(r'^(?P<company_slug>[\w-]+)/(?P<pk>[0-9]+)/$', ApplicationDetailView.as_view(),
+        name='application-application-detail'),
 
 ]

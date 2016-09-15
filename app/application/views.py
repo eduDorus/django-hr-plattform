@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 
 from .forms import ProcessForm, QueueFormSet
-from .models import Process
+from .models import Process, Application, Queue
+from company.models import Job
 
 
 class FormsetMixin(object):
@@ -105,3 +106,23 @@ class ProcessDeleteView(generic.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
+
+
+class ApplicationListView(generic.ListView):
+    model = Application
+    template_name = 'application/application_list.html'
+    context_object_name = 'applications_list'
+    slug_url_kwarg = 'company_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplicationListView, self).get_context_data(**kwargs)
+        context['queue_list'] = Queue.objects.all()
+        context['application_list'] = Application.objects.filter(job=Job.objects.filter(company=self.request.user.profile.company.id))
+        return context
+
+
+class ApplicationDetailView(generic.DetailView):
+    model = Application
+    template_name = 'application/application_detail.html'
+    context_object_name = 'applications_list'
+    slug_url_kwarg = 'company_slug'

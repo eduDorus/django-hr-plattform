@@ -11,6 +11,7 @@ from django.views.generic import View
 
 from .forms import UserForm
 from .models import Profile, Education, Experience, Language, Skill
+from application.models import Application
 
 
 class UserFormView(View):
@@ -100,8 +101,9 @@ class JobDetailView(generic.DetailView):
 def apply_for_job(request, pk):
     if request.method == 'POST':
         job = Job.objects.get(id=pk)
-        if not job.applications_process.applicationelement_set.queue.filter(pk=request.user.id).exists():
-            job.applications_process.applicationelement_set.queue.add(request.user)
+        if not Application.objects.filter(user=request.user.id).exists():
+            application_object = Application(user=request.user, job=job, queue=job.applications_process.queue_set.get(position=1))
+            application_object.save()
         return HttpResponseRedirect(reverse_lazy('user-job-list'))
     else:
         return HttpResponse(request)

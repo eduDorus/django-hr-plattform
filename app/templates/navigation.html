@@ -25,7 +25,9 @@
                             <a href="{% url 'company-job-list' request.user.profile.company.slug %}">Job offers</a>
                         </li>
 
-                        <li><a href="#">Applications</a></li>
+                        <li class="{% if request.resolver_match.url_name == 'application-application-list' %}active{% endif %}">
+                            <a href="{% url 'application-application-list' request.user.profile.company.slug %}">Applications</a>
+                        </li>
 
                         <li><a href="#">Search Candidates</a></li>
 

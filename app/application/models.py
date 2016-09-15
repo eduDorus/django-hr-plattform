@@ -24,7 +24,7 @@ class Queue(models.Model):
 class Application(models.Model):
     user = models.OneToOneField(User)
     job = models.OneToOneField('company.Job')
-    queue = models.OneToOneField(Queue)
+    queue = models.ForeignKey(Queue)
 
     def __str__(self):
         return "%s: %s" % (self.user, self.queue.name)
