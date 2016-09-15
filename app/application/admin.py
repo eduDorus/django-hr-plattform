@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Process, Queue, Application
 
-admin.register.site(Process)
-admin.register.site(Queue)
-admin.register.site(Application)
+admin.site.register(Process)
+admin.site.register(Queue)
+admin.site.register(Application)

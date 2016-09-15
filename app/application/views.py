@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from company.models import Company
+from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 
-from .models import Process, Queue
-from company.models import Company
-from .forms import ProcessForm, QueueFormSet
+from .forms import ProcessForm
+from .models import Process
+
 
 class FormsetMixin(object):
     object = None
@@ -49,7 +51,7 @@ class FormsetMixin(object):
     def form_valid(self, form, formset):
         process = form.save(commit=False)
         company_id = self.request.user.profile.company.id
-        process.company = Company.objects.get(id = company_id)
+        process.company = Company.objects.get(id=company_id)
         process.save()
 
         self.object = process

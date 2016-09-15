@@ -1,14 +1,14 @@
+from company.models import Job
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
 from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import View
 
-from company.models import Job
 from .forms import UserForm
 from .models import Profile, Education, Experience, Language, Skill
 
