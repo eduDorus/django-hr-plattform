@@ -9,7 +9,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'index' %}">Kyber</a>
+
+
+            {% if user.is_authenticated %}
+                {% if user.profile.is_company_user %}
+                    <a class="navbar-brand" href="{% url 'company-dashboard' %}">Kyber</a>
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'user-dashboard' %}">Kyber</a>
+                {% endif %}
+            {% else %}
+                <a class="navbar-brand" href="{% url 'index' %}">Kyber</a>
+            {% endif %}
+
+
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -74,7 +86,8 @@
                             <a href="{% url 'company-profile' request.user.profile.company.slug %}">Company Profile</a>
                         </li>
                         <li class="{% if request.resolver_match.url_name == 'application-process-list' %}active{% endif %}">
-                            <a href="{% url 'application-process-list' request.user.profile.company.slug %}">Application Processes</a>
+                            <a href="{% url 'application-process-list' request.user.profile.company.slug %}">Application
+                                Processes</a>
                         </li>
 
                     {% else %}

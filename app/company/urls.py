@@ -8,6 +8,9 @@ urlpatterns = [
     # Company Teaser View
     url(r'^$', TemplateView.as_view(template_name='company/home.html'), name='company-home'),
 
+    # Company Dashboard View
+    url(r'^dashboard/$', TemplateView.as_view(template_name='company/dashboard.html'), name='company-dashboard'),
+
     # Company User Registration
     url(r'^registration/$', CompanyUserFormView.as_view(), name='company-registration'),
 

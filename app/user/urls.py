@@ -9,6 +9,9 @@ urlpatterns = [
     # User Teaser View
     url(r'^$', TemplateView.as_view(template_name='user/home.html'), name='user-home'),
 
+    # Company Teaser View
+    url(r'^dashboard/$', TemplateView.as_view(template_name='user/dashboard.html'), name='user-dashboard'),
+
     # User Registration
     url(r'^registration/$', UserFormView.as_view(), name='user-registration'),
 
