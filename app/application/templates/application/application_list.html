@@ -2,24 +2,24 @@
 
 {% block content %}
 
-    {% if application_list %}
-        {% for application in application_list %}
+    {% if jobs_list %}
+        {% for job in jobs_list %}
 
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <a href="{% url 'application-application-detail' user.profile.company.slug application.id %}">
-                        <h2 class="panel-title"><b>{{ application.job.title }}</b> from {{ application.job.company }}</h2>
+                    <a href="{% url 'application-queue-list' user.profile.company.slug job.id %}">
+                        <h2 class="panel-title"><b>{{ job.title }}</b> from {{ job.company }}</h2>
                     </a>
                 </div>
                 <div class="panel-body">
-                    {% if queue_list %}
-                        {% for queue in queue_list%}
-                            {% if queue.process.id == application.job.applications_process.id %}
-                                <p>{{ queue.name }}</p>
-                            {% endif %}
+                    <table class="table table-no-border">
+                        {% for queue in job.applications_process.queue_set.all %}
+                            <tr>
+                                <td>{{ queue.name }}</td>
+                            </tr>
                         {% endfor %}
-                    {% endif %}
+                    </table>
                 </div>
             </div>
 

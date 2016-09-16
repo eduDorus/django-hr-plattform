@@ -22,9 +22,9 @@ class Queue(models.Model):
 
 
 class Application(models.Model):
-    user = models.OneToOneField(User)
-    job = models.OneToOneField('company.Job')
+    user = models.ForeignKey(User)
+    job = models.ForeignKey('company.Job')
     queue = models.ForeignKey(Queue)
 
     def __str__(self):
-        return "%s: %s" % (self.user, self.queue.name)
+        return "%s: %s in %s" % (self.user, self.job.title, self.queue.name)

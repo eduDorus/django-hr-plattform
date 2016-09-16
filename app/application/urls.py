@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import ProcessView, ProcessCreateView, ProcessUpdateView, ProcessDeleteView, ApplicationListView, ApplicationDetailView
+from .views import ProcessView, ProcessCreateView, ProcessUpdateView, ProcessDeleteView, ApplicationListView, QueueListView
 
 urlpatterns = [
 
@@ -15,7 +15,7 @@ urlpatterns = [
 
     url(r'^(?P<company_slug>[\w-]+)/$', ApplicationListView.as_view(),
         name='application-application-list'),
-    url(r'^(?P<company_slug>[\w-]+)/(?P<pk>[0-9]+)/$', ApplicationDetailView.as_view(),
-        name='application-application-detail'),
+    url(r'^(?P<company_slug>[\w-]+)/(?P<pk>[0-9]+)/$', QueueListView.as_view(),
+        name='application-queue-list'),
 
 ]

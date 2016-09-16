@@ -109,20 +109,18 @@ class ProcessDeleteView(generic.DeleteView):
 
 
 class ApplicationListView(generic.ListView):
-    model = Application
+    model = Job
     template_name = 'application/application_list.html'
-    context_object_name = 'applications_list'
+    context_object_name = 'jobs_list'
     slug_url_kwarg = 'company_slug'
 
     def get_context_data(self, **kwargs):
         context = super(ApplicationListView, self).get_context_data(**kwargs)
-        context['queue_list'] = Queue.objects.all()
-        context['application_list'] = Application.objects.filter(job=Job.objects.filter(company=self.request.user.profile.company.id))
+        context['application_list'] = Application.objects.all()
         return context
 
-
-class ApplicationDetailView(generic.DetailView):
-    model = Application
-    template_name = 'application/application_detail.html'
-    context_object_name = 'applications_list'
+class QueueListView(generic.DetailView):
+    model = Job
+    template_name = 'application/queue_list.html'
+    context_object_name = 'job'
     slug_url_kwarg = 'company_slug'

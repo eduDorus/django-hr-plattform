@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+    <h2 class="page-header">Applications for: {{ job.title }}</h2>
+
+    {% for queue in job.applications_process.queue_set.all %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"><b>{{ queue.name }}</b></h2>
+            </div>
+            <div class="panel-body">
+                {% if job.application_set %}
+                    {% for application in job.application_set.all %}
+                        {% if application.queue.id == queue.id %}
+                            <p>{{ application.user.first_name }} {{ application.user.last_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No Users</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'application-application-list' user.profile.company.slug %}" class="btn btn-danger">Back to applications</a>
+{% endblock %}

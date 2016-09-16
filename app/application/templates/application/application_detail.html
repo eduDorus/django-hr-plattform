@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1 class="page-header">{{ application.job.title }}</h1>
+
+    {% for queue in application.queue %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"><b>{{ application.job.title }}</b> from {{ application.job.company }}</h2>
+            </div>
+            <div class="panel-body">
+                {% if user_list %}
+                    {% for user in application.user %}
+                        {% if queue.process.id == application.job.applications_process.id %}
+                            <p>{{ user.first_name }} + " " + {{ user.last_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No Users</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <h3>Description</h3>
+    <p>{{ job.description }}</p>
+
+    <h3>Sector</h3>
+    <p>{{ job.company.sector }}</p>
+
+    <br/>
+
+    <a href="{% url 'company-job-update' user.profile.company.slug job.id %}" class="btn btn-danger">Update Job</a>
+{% endblock %}
