@@ -1,11 +1,11 @@
 from company.models import Company
-from company.models import Job
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import generic
 
 from .forms import ProcessForm, QueueFormSet
-from .models import Process, Application
+from .models import Process, Application, Queue
+from company.models import Job
 
 
 class FormsetMixin(object):
@@ -107,20 +107,38 @@ class ProcessDeleteView(generic.DeleteView):
         return reverse_lazy('application-process-list', kwargs={'company_slug': self.request.user.profile.company.slug})
 
 
-class ApplicationListView(generic.ListView):
+class CompanyApplicationListView(generic.ListView):
     model = Job
-    template_name = 'application/application_list.html'
+    template_name = 'application/company_application_list.html'
     context_object_name = 'jobs_list'
     slug_url_kwarg = 'company_slug'
 
     def get_context_data(self, **kwargs):
-        context = super(ApplicationListView, self).get_context_data(**kwargs)
+        context = super(CompanyApplicationListView, self).get_context_data(**kwargs)
         context['application_list'] = Application.objects.all()
         return context
 
-
-class QueueListView(generic.DetailView):
+class CompanyQueueListView(generic.DetailView):
     model = Job
-    template_name = 'application/queue_list.html'
+    template_name = 'application/company_queue_list.html'
     context_object_name = 'job'
     slug_url_kwarg = 'company_slug'
+
+
+class UserApplicationListView(generic.ListView):
+    model = Application
+    template_name = 'application/user_application_list.html'
+    context_object_name = 'applications_list'
+    slug_url_kwarg = 'username'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserApplicationListView, self).get_context_data(**kwargs)
+        context['application_list'] = Application.objects.filter(user=self.request.user.id)
+        return context
+
+
+class UserQueueListView(generic.DetailView):
+    model = Application
+    template_name = 'application/user_queue_list.html'
+    context_object_name = 'application'
+    slug_url_kwarg = 'username'

@@ -24,5 +24,5 @@
         </div>
     {% endfor %}
 
-    <a href="{% url 'application-application-list' user.profile.company.slug %}" class="btn btn-danger">Back to applications</a>
+    <a href="{% url 'application-company-application-list' user.profile.company.slug %}" class="btn btn-danger">Back to applications</a>
 {% endblock %}

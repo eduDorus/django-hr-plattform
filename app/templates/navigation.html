@@ -37,8 +37,8 @@
                             <a href="{% url 'company-job-list' request.user.profile.company.slug %}">Job offers</a>
                         </li>
 
-                        <li class="{% if request.resolver_match.url_name == 'application-application-list' %}active{% endif %}">
-                            <a href="{% url 'application-application-list' request.user.profile.company.slug %}">Applications</a>
+                        <li class="{% if request.resolver_match.url_name == 'application-company-application-list' %}active{% endif %}">
+                            <a href="{% url 'application-company-application-list' request.user.profile.company.slug %}">Applications</a>
                         </li>
 
                         <li><a href="#">Search Candidates</a></li>
@@ -49,7 +49,9 @@
                             <a href="{% url 'user-job-list' %}">Search Jobs</a>
                         </li>
 
-                        <li><a href="#">Applications</a></li>
+                        <li class="{% if request.resolver_match.url_name == 'application-user-application-list' %}active{% endif %}">
+                            <a href="{% url 'application-user-application-list' request.user.username %}">My Applications</a>
+                        </li>
 
                         <li><a href="#">Softskill checker</a></li>
 

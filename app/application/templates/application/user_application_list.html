@@ -8,22 +8,17 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <a href="{% url 'application-queue-list' user.profile.company.slug application.job.id %}">
+                    <a href="{% url 'application-user-queue-list' request.user.username application.id %}">
                         <h2 class="panel-title"><b>{{ application.job.title }}</b> from {{ application.job.company }}</h2>
                     </a>
                 </div>
                 <div class="panel-body">
-                    {% if queue_list %}
-                        {% for queue in queue_list%}
-                            {% if queue.process.id == application.job.applications_process.id %}
-                                <p>{{ queue.name }}</p>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    <p>{{ application.queue.name }}</p>
                 </div>
             </div>
-
         {% endfor %}
+    {% else %}
+        <p>No applications until now!</p>
     {% endif %}
 
 {% endblock %}
