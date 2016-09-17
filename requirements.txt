@@ -1,7 +1,7 @@
 Django==1.8.14
 django-admin-bootstrapped==2.5.7
 django-appconf==1.0.2
-django-bootstrap3==7.0.1
+django-bootstrap3==7.1.0
 django-imagekit==3.3
 pilkit==1.1.13
 Pillow==3.3.1

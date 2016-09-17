@@ -1,12 +1,11 @@
 from company.models import Company
-from django.contrib.contenttypes import generic
+from company.models import Job
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import generic
 
 from .forms import ProcessForm, QueueFormSet
-from .models import Process, Application, Queue
-from company.models import Job
+from .models import Process, Application
 
 
 class FormsetMixin(object):
@@ -118,6 +117,7 @@ class ApplicationListView(generic.ListView):
         context = super(ApplicationListView, self).get_context_data(**kwargs)
         context['application_list'] = Application.objects.all()
         return context
+
 
 class QueueListView(generic.DetailView):
     model = Job

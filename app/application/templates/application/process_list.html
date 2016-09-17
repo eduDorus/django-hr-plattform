@@ -3,10 +3,10 @@
 {% block content %}
 
     <h1 class="page-header">Application Processes</h1>
-
-    <div class="row">
-        {% if process_list %}
-            {% for process in process_list %}
+    
+    {% if process_list %}
+        {% for process in process_list %}
+            <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -19,7 +19,7 @@
                             <table class="table table-no-border">
                                 {% for queue in process.queue_set.all %}
                                     <tr>
-                                        <td>{{ forloop.counter }}  -  {{ queue.name }}</td>
+                                        <td>{{ forloop.counter }} - {{ queue.name }}</td>
                                         <td>{{ queue.description }}</td>
                                     </tr>
                                 {% endfor %}
@@ -33,12 +33,13 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <h4>You have no Application processes. Please create one.</h4>
-        {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4>You have no Application processes. Please create one.</h4>
+    {% endif %}
 
-    </div>
+
 
     <a href="{% url 'application-process-create' request.user.profile.company.slug %}" class="btn btn-link btn-block">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create a new Application Process
