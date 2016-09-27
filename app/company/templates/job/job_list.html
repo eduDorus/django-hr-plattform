@@ -25,9 +25,10 @@
                                 <a href="{% url 'company-job-detail' user.profile.company.slug job.id %}">
                                     <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
                                 </a>
-                                <span class="label label-default">{{ job.start_date }}</span>
-                                <span class="label label-info">{{ job.employment_grade }}%</span>
-                                <span class="label label-warning">{{ job.min_degree }}</span>
+                                <span class="label label-default">{{ job.start_date }}{% if job.end_date %} -
+                                    {{ job.end_date }}{% endif %}</span>
+                                <span class="label label-default">{{ job.employment_grade }}%</span>
+                                <span class="label label-default">{{ job.min_degree }}</span>
                             </div>
                             <div class="panel-body">
                                 <p>{{ job.description }}</p>

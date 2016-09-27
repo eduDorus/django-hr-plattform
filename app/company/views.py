@@ -147,7 +147,7 @@ class JobCreateView(generic.CreateView):
 class JobUpdateView(generic.UpdateView):
     model = Job
     template_name = 'job/job_update.html'
-    fields = ['title', 'description', 'employment_grade', 'min_degree', 'start_date', 'applications_process']
+    fields = ['title', 'description', 'employment_grade', 'min_degree', 'start_date', 'end_date', 'applications_process']
     slug_url_kwarg = 'company_slug'
 
 
