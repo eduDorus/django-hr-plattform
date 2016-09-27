@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+    <h1 contenteditable="true" class="text-center container-margin">For Job Seekers</h1>
     <div class="section">
         <div class="container-fluid container-margin">
             <div class="row">
@@ -20,16 +21,42 @@
                     <img src="http://placehold.it/650x450" class="img-responsive center-block">
                 </div>
                 <div class="col-sm-6 text-center">
-                    <h1 class="text-primary">Easy to use interface</h1>
-                    <h3>A subtitle</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-                        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                        nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-                        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                        enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-                        felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-                        elementum semper nisi.</p>
+                    <h1 class="text-primary">The fastest way to get the job that fits you</h1>
+                    <h3>Match, Apply, Interview and Sign</h3>
+                    <p>Most Application procedures are to complicated, we simplifyed that process.
+                        It's easy as that, sign up and give us some basic information about you
+                        so we can fit you to a company. When you see a job offer that you like
+                        press the button apply . You will see the exact steps of the application,
+                        so no worrie when you rise your chances by appliening in multiple jobs.&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container-fluid container-margin">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Matching System</h3>
+                    <p>Our system will show you the jobs that suits you, no need to go trough
+                        hundred of ads.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>One Klick Application</h3>
+                    <p>With our service you can applz for a job on a button press. No E-Mails
+                        with Zipfiles needed.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Softskills</h3>
+                    <p>What matters is what you like, don't waste your time discovering the perfect
+                        work enviroment for you.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Easy CV</h3>
+                    <p>We guide you trough the process to create a nice looking CV</p>
                 </div>
             </div>
         </div>
@@ -39,21 +66,24 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron text-center">
-                        <h1>User</h1>
+                        <h1>Check out all the features as a user</h1>
                         <p>We can get the perfect employee for you 60% faster than any other internet
                             plattform</p>
-                        <a href="{% url 'user-home' %}" class="btn btn-large btn-lg btn-primary">See all the advantages of kyber as an user&nbsp;</a>
+                        <a href="{% url 'user-home' %}" class="btn btn-large btn-lg btn-primary">See all the advantages
+                            of kyber as an user&nbsp;</a>
+                        <a href="{% url 'user-registration' %}" class="btn btn-large btn-lg btn-primary">Register now</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <h1 contenteditable="true" class="text-center container-margin">For Companies</h1>
     <div class="section text-left">
         <div class="container-fluid container-margin">
             <div class="row">
                 <div class="col-sm-6 text-center">
-                    <h1 class="text-primary">Get the right one</h1>
-                    <h3>A subtitle</h3>
+                    <h1 class="text-primary">Find employees with the same mindset</h1>
+                    <h3>We offer the services of HR faster, better and more reliable</h3>
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                         ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
                         dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
@@ -72,12 +102,47 @@
     <div class="section">
         <div class="container-fluid container-margin">
             <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Career Portal</h3>
+                    <p>
+              <span style="color: rgb(100, 99, 123); font-family: 'Hind Madurai', Helvetica, sans-serif; font-size: 13.125px; font-variant-ligatures: normal; letter-spacing: normal; orphans: 2; widows: 2;">Impress candidates with a beautiful career portal.Impress candidates with
+                a beautiful career portal.</span>
+                    </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Security</h3>
+                    <p>All our data is stored in Switzerland with ISO 27001, thats finance standard.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Manage Applications</h3>
+                    <p>With our easy to use application process you can easely mange the applications
+                        for your job.</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
+                    <h3>Schedule</h3>
+                    <p>
+                        <span style="color: rgb(100, 99, 123); font-family: 'Hind Madurai', Helvetica, sans-serif; font-size: 13.125px; font-variant-ligatures: normal; letter-spacing: normal; orphans: 2; widows: 2;">Schedule interviews easily.Schedule interviews easily.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container-fluid container-margin">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron text-center">
-                        <h1>Company</h1>
+                        <h1>Find the right people for your company</h1>
                         <p>We can get the perfect employee for you 60% faster than any other internet
                             plattform</p>
-                        <a href="{% url 'company-home' %}" class="btn btn-large btn-lg btn-primary">Find out how you can find employees&nbsp;</a>
+                        <a href="{% url 'company-home' %}" class="btn btn-large btn-lg btn-primary">Find out more about
+                            kyber&nbsp;<i class="fa fa-fw fa-info"></i></a>
+                        <a href="{% url 'company-registration' %}" class="btn btn-large btn-lg btn-primary">Register as an
+                            Company</a>
                     </div>
                 </div>
             </div>
@@ -86,33 +151,68 @@
     <div class="section">
         <div class="container-fluid container-margin">
             <div class="row">
-                <div class="col-md-3 text-center">
-                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
-                    <h2>A title</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                        <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                        <br>Ut enim ad minim veniam, quis nostrud</p>
+                <div class="col-md-12">
+                    <h1 class="text-center">Testimonials</h1>
+                    <p class="text-center">We are a group of skilled individuals.</p>
                 </div>
-                <div class="col-md-3 text-center">
-                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
-                    <h2>A title</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                        <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                        <br>Ut enim ad minim veniam, quis nostrud</p>
+            </div>
+            <div class="row testimonials-margin">
+                <div class="col-md-2">
+                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"
+                         class="center-block img-circle img-responsive">
                 </div>
-                <div class="col-md-3 text-center">
-                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
-                    <h2>A title</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                        <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                        <br>Ut enim ad minim veniam, quis nostrud</p>
+                <div class="col-md-4">
+                    <h3 class="text-left">John Doe</h3>
+                    <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
                 </div>
-                <div class="col-md-3 text-center">
-                    <img src="http://placehold.it/200x200" class="img-circle img-responsive center-block">
-                    <h2>A title</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                        <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                        <br>Ut enim ad minim veniam, quis nostrud</p>
+                <div class="col-md-2">
+                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"
+                         class="center-block img-circle img-responsive">
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-left">John Doe</h3>
+                    <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+                </div>
+            </div>
+            <div class="row testimonials-margin">
+                <div class="col-md-2">
+                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"
+                         class="center-block img-circle img-responsive">
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-left">John Doe</h3>
+                    <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png"
+                         class="center-block img-circle img-responsive">
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3 class="text-left">John Doe</h3>
+                    <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container-fluid container-margin">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Subscribe to get the latest informations</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <form role="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter your email">
+                                <span class="input-group-btn">
+                    <a class="btn btn-success" type="submit">Go</a>
+                  </span>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

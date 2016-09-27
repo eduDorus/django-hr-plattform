@@ -3,23 +3,30 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1 class="page-header">{{ company.name }}</h1>
 
-    <img src="{{ company.logo_thumbnail.url }}" class="img-responsive pull-right"/>
+    <img src="{{ company.logo_thumbnail.url }}" alt="Company Logo" class="img-responsive center-block container-margin"
+         height="250px" width="250px">
 
-    <h3>Description</h3>
-    <p>{{ company.description }}</p>
 
-    <h3>Size</h3>
-    <p>The Company has around {{ company.size }} employees</p>
+    <div class="row">
 
-    <h3>Sector</h3>
-    <p>{{ company.sector }}</p>
+    <div class="col-sm-7 col-sm-offset-1">
+            <h3>{{ company.name }}</h3>
+            <p>{{ company.description }}</p>
+        </div>
 
-    <p>For more information look on their website</p>
-    <a href="{{ company.website }}" target="_blank">View the Company Website</a>
+        <div class="col-sm-3">
+            <h5>Size</h5>
+            <p>The Company has around {{ company.size }} employees</p>
 
-    <br/>
+            <h5>Sector</h5>
+            <p>{{ company.sector }}</p>
 
-    <a href="{% url 'company-profile-update' user.profile.company.slug %}" class="btn btn-danger">Edit</a>
+            <h5>Website</h5>
+            <a href="{{ company.website }}" target="_blank">View the Company Website</a>
+        </div>
+
+    </div>
+
+    <a href="{% url 'company-profile-update' user.profile.company.slug %}" class="btn btn-primary pull-right">Edit</a>
 {% endblock %}

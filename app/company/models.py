@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
+from pilkit.processors.resize import ResizeToCover
 
 LEVEL = (
     (1, 'The employee knows what it is'),
@@ -45,7 +46,7 @@ class Company(models.Model):
 
     logo = models.ImageField(upload_to='media/logos', default='media/logos/default-logo.jpg')
     logo_thumbnail = ImageSpecField(source='logo',
-                                    processors=[ResizeToFill(150, 150)],
+                                    processors=[ResizeToCover(450, 250)],
                                     format='JPEG',
                                     options={'quality': 100})
 

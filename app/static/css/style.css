@@ -15,6 +15,11 @@ footer {
     padding-bottom: 60px;
 }
 
+.testimonials-margin {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 .padding-top {
     padding-top: 80px;
 }
@@ -23,4 +28,8 @@ footer {
     margin: auto;
     max-width: 600px;
     padding-top: 30px;
+}
+
+.jumbotron {
+    background-color: #fff;
 }
