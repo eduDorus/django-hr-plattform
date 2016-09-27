@@ -1,0 +1,50 @@
+[
+  {
+    "model": "user.SocialProvider",
+    "pk": 1,
+    "fields": {
+      "name": "Instagram",
+      "icon": "instagram"
+    }
+  },
+  {
+    "model": "user.SocialProvider",
+    "pk": 2,
+    "fields": {
+      "name": "Xing",
+      "icon": "xing"
+    }
+  },
+  {
+    "model": "user.SocialProvider",
+    "pk": 3,
+    "fields": {
+      "name": "Twitter",
+      "icon": "twitter"
+    }
+  },
+  {
+    "model": "user.SocialProvider",
+    "pk": 4,
+    "fields": {
+      "name": "Github",
+      "icon": "github"
+    }
+  },
+  {
+    "model": "user.SocialProvider",
+    "pk": 5,
+    "fields": {
+      "name": "LinkedIn",
+      "icon": "linkedin"
+    }
+  },
+  {
+    "model": "user.SocialProvider",
+    "pk": 6,
+    "fields": {
+      "name": "Website",
+      "icon": "globe"
+    }
+  }
+]

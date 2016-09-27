@@ -13,6 +13,7 @@ class Process(models.Model):
 class Queue(models.Model):
     name = models.CharField(max_length=100)
     position = models.IntegerField()
+    icon = models.CharField(max_length=50)
     # TODO status field?
     description = models.CharField(max_length=1000)
     process = models.ForeignKey(Process, on_delete=models.CASCADE)

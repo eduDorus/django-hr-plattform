@@ -14,4 +14,4 @@ class QueueForm(forms.ModelForm):
         model = Queue
         fields = ['name']
 
-QueueFormSet = inlineformset_factory(Process, Queue, extra=0, min_num=1, max_num=10, fields=('name', 'position', 'description'))
+QueueFormSet = inlineformset_factory(Process, Queue, extra=0, min_num=1, max_num=10, fields=('name', 'position', 'description', 'icon'))

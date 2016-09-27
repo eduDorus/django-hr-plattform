@@ -1,24 +1,63 @@
 {% extends 'base.html' %}
 
-{% block content %}
-
-    {% if application_list %}
+{% block left_panel %}
+    <ul id="myTabs" class="nav nav-tabs nav-stacked" role="tablist">
         {% for application in application_list %}
+            <li role="presentation" class="">
+                <a href="#{{ application.job.slug }}" aria-controls="{{ application.job.slug }}" role="tab"
+                   data-toggle="tab">{{ application.job.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
 
-            <div class="panel panel-default">
+{% block right_panel %}
 
-                <div class="panel-heading">
-                    <a href="{% url 'application-user-queue-list' request.user.username application.id %}">
-                        <h2 class="panel-title"><b>{{ application.job.title }}</b> from {{ application.job.company }}</h2>
-                    </a>
+    <div class="tab-content">
+        {% for application in application_list %}
+            <div role="tabpanel" class="tab-pane fade" id="{{ application.job.slug }}">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h2 class="page-header">{{ application.job.title }}</h2>
+                        <h5>Description</h5>
+                        <p>{{ application.job.description }}</p>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h5>Start/End Date</h5>
+                        <p>{{ application.job.start_date }}
+                        {% if application.job.end_date %}
+                            - {{ application.job.end_date }}
+                        {% endif %}</p>
+
+                        <h5>Employment Grade</h5>
+                        <p>{{ application.job.employment_grade }}%</p>
+
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <p>{{ application.queue.name }}</p>
+
+            <h3>Application Process</h3>
+                <div class="row container-margin">
+                    {% for queue in application.queue.process.queue_set.all %}
+
+                        <div class="col-sm-1 text-center">
+                            <i class="fa fa-5x fa-long-arrow-right" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="col-sm-1 text-center">
+                            <a href="#"><i class="fa fa-5x fa-fw fa-{{ queue.icon }} {% if queue.position < application.queue.position %}
+                            text-success {% elif queue.position == application.queue.position %} text-warning
+                            {% endif %}"></i><br/>{{ queue.name }}</a>
+                        </div>
+
+
+                    {% endfor %}
                 </div>
             </div>
+            {% empty %}
+            <blockquote>
+                <p>You have currently no jobs to offer. Click the button on the left to create a new one</p>
+            </blockquote>
         {% endfor %}
-    {% else %}
-        <p>No applications until now!</p>
-    {% endif %}
+    </div>
 
 {% endblock %}

@@ -139,3 +139,18 @@ class Language(models.Model):
 
     def get_absolute_url(self):
         return reverse('user-cv-index', kwargs={'username': self.user.username})
+
+
+class SocialProvider(models.Model):
+    name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=50)
+
+
+class SocialAccount(models.Model):
+    user = models.ForeignKey(User, blank=True, null=True)
+    social_provider = models.ForeignKey(SocialProvider)
+    url = models.URLField(max_length=250)
+
+    def __str__(self):
+        return 's% - s%' % (self.user.username, self.service)
+

@@ -6,36 +6,34 @@
         <div class="container">
 
             <div class="panel panel-default">
-
                 <div class="panel-heading">
                     <a href="{% url 'user-job-detail' job.id %}">
                         <h2 class="panel-title"><b>{{ job.title }} </b>@{{ job.company.name }}</h2>
                     </a>
-                    <span class="label label-default">{{ job.start_date }}{% if job.end_date %} - {{ job.end_date }}{% endif %}</span>
+                    <span class="label label-default">{{ job.start_date }}{% if job.end_date %} -
+                        {{ job.end_date }}{% endif %}</span>
                     <span class="label label-default">{{ job.employment_grade }}%</span>
                     <span class="label label-default">{{ job.min_degree }}</span>
                 </div>
+
                 <div class="panel-body">
-
                     <div class="row">
-
                         <div class="col-sm-2">
-                            <img src="{{ job.company.logo_thumbnail.url }}" alt="Company Logo" class="img-responsive center-block"
-                         height="150px" width="150px">
+                            <img src="{{ job.company.logo_thumbnail.url }}" alt="Company Logo"
+                                 class="img-responsive center-block"
+                                 height="150px" width="150px">
                         </div>
-
                         <div class="col-sm-10">
                             <p>{{ job.description }}</p>
                         </div>
 
                     </div>
                 </div>
+
             </div>
+
         </div>
         {% empty %}
-        <p>No job offers</p>
+        <p>It looks like there currently no job offers...</p>
     {% endfor %}
-
-
-
 {% endblock %}
