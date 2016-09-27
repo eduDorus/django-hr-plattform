@@ -4,17 +4,44 @@
 {% load imagekit %}
 
 {% block content %}
-    <h1 class="page-header">{{ user.first_name }} {{ user.last_name }}</h1>
 
-    <img src="{{ profile.avatar_thumbnail.url }}" class="img-circle img-responsive img-thumbnail pull-right"/>
-
-    <p>E-Mail: {{ user.email }}</p>
-    <h3>Gender</h3>
-    <p>{{ profile.gender }}</p>
-
-    <h3>Birthday</h3>
-    <p>{{ profile.birthday }}</p>
+    <img src="{{ profile.avatar_thumbnail.url }}" alt="Profile Picture"
+         class="img-circle img-responsive center-block container-margin"
+         height="250px" width="250px">
 
 
-    <a href="{% url 'user-profile-edit' user.username %}" class="btn btn-danger">Edit</a>
+    <div class="row">
+
+        <div class="col-sm-7 col-sm-offset-1">
+            <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+            <p>{{ profile.motivation }}</p>
+        </div>
+
+        <div class="col-sm-3 text-center">
+            <h5>E-Mail</h5>
+            <p>{{ user.email }}</p>
+
+            <h5>Gender</h5>
+            <p>{{ profile.gender }}</p>
+
+            <h5>Birthday</h5>
+            <p>{{ profile.birthday }}</p>
+
+            <h5>Website & Social media</h5>
+            <a href="{{ company.website }}" target="_blank">View the Company Website</a>
+
+            <div class="row">
+                <div class="col-sm-12 hidden-xs text-right"><a href="#"><i
+                        class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a> <a href="#"><i
+                        class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a> <a href="#"><i
+                        class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a> <a href="#"><i
+                        class="fa fa-3x fa-fw fa-github text-inverse"></i></a></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a href="{% url 'user-profile-edit' user.username %}" class="btn btn-primary pull-right">Edit</a>
 {% endblock %}

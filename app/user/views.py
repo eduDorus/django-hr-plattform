@@ -78,7 +78,7 @@ class ProfileDetailView(generic.DetailView):
 class ProfileUpdateView(generic.UpdateView):
     model = Profile
     template_name = 'user/profile_update.html'
-    fields = ['avatar', 'gender', 'birthday', 'company']
+    fields = ['avatar', 'motivation', 'gender', 'birthday', 'company']
     slug_url_kwarg = 'username'
 
     def get_object(self, queryset=None):

@@ -2,15 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFill
+from pilkit.processors import ResizeToCover
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    motivation = models.TextField(null=True, blank=True, max_length=1500)
 
     avatar = models.ImageField(upload_to='media/avatars', default='media/avatars/default-avatar.jpg')
     avatar_thumbnail = ImageSpecField(source='avatar',
-                                      processors=[ResizeToFill(150, 150)],
+                                      processors=[ResizeToCover(250, 250)],
                                       format='JPEG',
                                       options={'quality': 100})
 
