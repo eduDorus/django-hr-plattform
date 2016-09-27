@@ -27,7 +27,7 @@ class CompanyUserForm(forms.ModelForm):
 class JobModelForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ['created', 'company']
+        exclude = ['created', 'company', 'slug']
 
     def __init__(self, *args, **kwargs):
         company = kwargs.pop('company')

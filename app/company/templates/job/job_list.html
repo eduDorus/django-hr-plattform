@@ -2,31 +2,52 @@
 
 {% block content %}
 
-    <a href="{% url 'company-job-create' user.profile.company.slug %}" class="btn btn-primary btn-block">Create a
-        new Job offer</a>
-    <br/>
+    <div class="row">
+        <div class="col-sm-3">
+            <a href="{% url 'company-job-create' user.profile.company.slug %}" class="btn btn-primary btn-block">Create
+                a new Job offer</a>
+            <br/>
+            <ul id="myTabs" class="nav nav-tabs nav-stacked" role="tablist">
+                {% for job in jobs_list %}
+                    <li role="presentation" class=""><a href="#{{ job.slug }}" aria-controls="{{ job.slug }}"
+                                                        role="tab" data-toggle="tab">{{ job.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-9">
 
-    {% for job in jobs_list %}
+            <div class="tab-content">
+                {% for job in jobs_list %}
+                    <div role="tabpanel" class="tab-pane fade" id="{{ job.slug }}">
+                        <div class="panel panel-default">
 
-        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="{% url 'company-job-detail' user.profile.company.slug job.id %}">
+                                    <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
+                                </a>
+                                <span class="label label-default">{{ job.start_date }}</span>
+                                <span class="label label-info">{{ job.employment_grade }}%</span>
+                                <span class="label label-warning">{{ job.min_degree }}</span>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{ job.description }}</p>
 
-            <div class="panel-heading">
-                <a href="{% url 'company-job-detail' user.profile.company.slug job.id %}">
-                    <h2 class="panel-title"><b>{{ job.company.name }}</b> {{ job.title }} </h2>
-                </a>
-                <span class="label label-default">{{ job.start_date }}</span>
-                <span class="label label-info">{{ job.employment_grade }}%</span>
-                <span class="label label-warning">{{ job.min_degree }}</span>
-            </div>
-            <div class="panel-body">
-                <p>{{ job.description }}</p>
+                                <a href="{% url 'company-job-update' user.profile.company.slug job.id %}"
+                                   class="btn btn-warning">Update</a>
+                                <a href="{% url 'company-job-delete' user.profile.company.slug job.id %}"
+                                   class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <blockquote>
+                        <p>You have currently no jobs to offer. Klick the button on the left to create a new one</p>
+                    </blockquote>
 
-                <a href="{% url 'company-job-update' user.profile.company.slug job.id %}" class="btn btn-warning">Update</a>
-                <a href="{% url 'company-job-delete' user.profile.company.slug job.id %}" class="btn btn-danger">Delete</a>
+                {% endfor %}
             </div>
         </div>
-
-    {% endfor %}
+    </div>
 
 
 {% endblock %}

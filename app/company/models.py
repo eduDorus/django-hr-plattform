@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFill
 from pilkit.processors.resize import ResizeToCover
 
 LEVEL = (
@@ -92,6 +92,7 @@ class Job(models.Model):
 
     company = models.ForeignKey(Company, on_delete=None)
     title = models.CharField(max_length=150)
+    slug = models.SlugField(unique=True)
     description = models.TextField(max_length=1500)
     employment_grade = models.PositiveIntegerField(choices=EMPLOYMENT_GRADE)
 
@@ -146,7 +147,7 @@ class Preference(models.Model):
         return "%s: %s" % (self.job.title, self.earning)
 
 
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
+def pre_save_post_receiver_company(sender, instance, *args, **kwargs):
     if instance.slug is None:
         slug = slugify(instance.name)
         print(slug)
@@ -156,4 +157,16 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
         instance.slug = slug
 
 
-pre_save.connect(pre_save_post_receiver, sender=Company)
+@receiver(pre_save, sender=Job)
+def pre_save_post_receiver_job(sender, instance, *args, **kwargs):
+    print(instance.slug)
+    if instance.slug is None or not instance.slug:
+        slug = slugify(instance.title)
+        print(slug)
+        exists = Job.objects.filter(slug=slug).exists()
+        if exists:
+            slug = "%s-%s" % (slug, instance.id)
+        instance.slug = slug
+
+
+pre_save.connect(pre_save_post_receiver_company, sender=Company)
