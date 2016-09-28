@@ -1,29 +1,57 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block title %}
+    Application List
+{% endblock %}
 
-    {% if jobs_list %}
-        {% for job in jobs_list %}
+{% block left_panel %}
 
-            <div class="panel panel-default">
+    <ul id="myTabs" class="nav nav-tabs nav-stacked" role="tablist">
+        {% for job in job_list %}
+            <li role="presentation">
+                <a href="#{{ job.slug }}" aria-controls="{{ job.slug }}" role="tab"
+                   data-toggle="tab">{{ job.title }} <span class="badge pull-right">{{ job.application_set.all.count }}</span></a>
+            </li>
+        {% endfor %}
+    </ul>
 
-                <div class="panel-heading">
-                    <a href="{% url 'application-company-queue-list' user.profile.company.slug job.id %}">
-                        <h2 class="panel-title"><b>{{ job.title }}</b> from {{ job.company }}</h2>
-                    </a>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-no-border">
-                        {% for queue in job.applications_process.queue_set.all %}
-                            <tr>
-                                <td>{{ queue.name }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+{% endblock %}
+
+{% block right_panel %}
+    <div class="tab-content">
+        {% for job in job_list %}
+            <div role="tabpanel" class="tab-pane" id="{{ job.slug }}">
+                <div class="row">
+                    {% for queue in job.applications_process.queue_set.all %}
+                        <div class="col-sm-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title text-center"><b>{{ queue.name }}</b></h1>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        {% for application in job.application_set.all %}
+                                            {% if application.queue.id == queue.id %}
+                                                <div class="col-sm-6">
+                                                    <div class="thumbnail">
+                                                        <img src="{{ application.user.profile.avatar_thumbnail.url }}"
+                                                             alt="Profile Picture"
+                                                             class="img-circle img-responsive"
+                                                             height="100px" width="100px">
+                                                        <div class="caption text-center">
+                                                            <p>{{ application.user.first_name }} {{ application.user.last_name }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-
         {% endfor %}
-    {% endif %}
-
+    </div>
 {% endblock %}

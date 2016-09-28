@@ -9,10 +9,10 @@
     <ul id="myTabs" class="nav nav-tabs nav-stacked" role="tablist">
         <li role="presentation">
             <a href="#education" aria-controls="home" role="tab"
-                                   data-toggle="tab">Education</a></li>
+               data-toggle="tab">Education</a></li>
         <li role="presentation">
             <a href="#experience" aria-controls="profile" role="tab"
-                                   data-toggle="tab">Experience</a></li>
+               data-toggle="tab">Experience</a></li>
         <li role="presentation">
             <a href="#skill" aria-controls="messages" role="tab" data-toggle="tab">Skills</a>
         </li>
@@ -25,13 +25,11 @@
 
 {% block right_panel %}
 
-    <div class="col-sm-9">
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="education">{% include 'cv/education_list.html' %}</div>
-            <div role="tabpanel" class="tab-pane" id="experience">{% include 'cv/experience_list.html' %}</div>
-            <div role="tabpanel" class="tab-pane" id="skill">{% include 'cv/skill_list.html' %}</div>
-            <div role="tabpanel" class="tab-pane" id="language">{% include 'cv/language_list.html' %}</div>
-        </div>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane" id="education">{% include 'cv/education_list.html' %}</div>
+        <div role="tabpanel" class="tab-pane" id="experience">{% include 'cv/experience_list.html' %}</div>
+        <div role="tabpanel" class="tab-pane" id="skill">{% include 'cv/skill_list.html' %}</div>
+        <div role="tabpanel" class="tab-pane" id="language">{% include 'cv/language_list.html' %}</div>
     </div>
 
 {% endblock %}

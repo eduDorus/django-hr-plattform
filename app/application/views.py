@@ -110,19 +110,11 @@ class ProcessDeleteView(generic.DeleteView):
 class CompanyApplicationListView(generic.ListView):
     model = Job
     template_name = 'application/company_application_list.html'
-    context_object_name = 'jobs_list'
+    context_object_name = 'job_list'
     slug_url_kwarg = 'company_slug'
 
-    def get_context_data(self, **kwargs):
-        context = super(CompanyApplicationListView, self).get_context_data(**kwargs)
-        context['application_list'] = Application.objects.all()
-        return context
-
-class CompanyQueueListView(generic.DetailView):
-    model = Job
-    template_name = 'application/company_queue_list.html'
-    context_object_name = 'job'
-    slug_url_kwarg = 'company_slug'
+    def get_queryset(self):
+        return Job.objects.filter(company=self.request.user.profile.company)
 
 
 class UserApplicationListView(generic.ListView):
@@ -135,10 +127,3 @@ class UserApplicationListView(generic.ListView):
         context = super(UserApplicationListView, self).get_context_data(**kwargs)
         context['application_list'] = Application.objects.filter(user=self.request.user.id)
         return context
-
-
-class UserQueueListView(generic.DetailView):
-    model = Application
-    template_name = 'application/user_queue_list.html'
-    context_object_name = 'application'
-    slug_url_kwarg = 'username'
